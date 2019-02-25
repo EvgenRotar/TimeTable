@@ -7,10 +7,15 @@ VALUES ('1',  'MC-2'),
        ('2',  'II-14');
 
 
-INSERT INTO TIMETABLE.STUDENT (STUDENT_ID, STUDENT_NAME, STUDENT_SURNAME, STUDENT_LOGIN, STUDENT_PASSWORD, GROUP_ID, ROLE_ID)
+INSERT INTO TIMETABLE.USER (USER_ID, USER_NAME, USER_SURNAME, USER_LOGIN, USER_PASSWORD, GROUP_ID, ROLE_ID)
 VALUES ('1',  'Test1', 'fromMs2', 'Test123', 'asdf', '1', '1'),
        ('2',  'Test2', 'fromII-14', 'Test123', 'asdf', '2', '1'),
        ('3',  'Test3', 'admin', 'admin123', 'admin', null, '2');
+
+INSERT INTO TIMETABLE.USER_ROLE (ROLE_ID, USER_ID)
+VALUES ('1',  '1'),
+       ('1',  '2'),
+       ('2',  '3');
 
 INSERT INTO TIMETABLE.TIME_TABLE (TIME_TABLE_ID, TIME_TABLE_NAME, GROUP_ID)
 VALUES ('1',  'down', '1'),

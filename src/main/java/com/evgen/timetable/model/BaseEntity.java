@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @MappedSuperclass
-abstract class BaseEntity {
+public abstract class BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +19,7 @@ abstract class BaseEntity {
 
   @Override
   public String toString() {
-    return "BaseEntity{" +
-        "id=" + id +
-        '}';
+    return this.getClass().getSimpleName() + "(id=" + this.getId() + ")";
   }
+
 }
