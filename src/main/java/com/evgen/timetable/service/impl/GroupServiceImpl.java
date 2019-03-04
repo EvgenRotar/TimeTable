@@ -48,7 +48,7 @@ public class GroupServiceImpl implements GroupService {
   }
 
   @Override
-  public GroupWithTimeTableResponse groupWithTimeTableResponse(Long groupId) {
+  public GroupWithTimeTableResponse getGroupWithTimeTableResponse(Long groupId) {
     groupRepository.findGroupById(groupId);
     return groupMapper.groupToGroupWithTimeTableResponse(getGroupByIdOrThrowException(groupId));
   }

@@ -46,7 +46,7 @@ public class GroupController {
   @GetMapping(value = "/api/groups/{id}", params = "projection=TimeTableInfo")
   public ResponseEntity<GroupWithTimeTableResponse> getGroupWithTimeTable(
       @PathVariable("id") Long groupId) {
-    return ResponseEntity.ok().body(groupService.groupWithTimeTableResponse(groupId));
+    return ResponseEntity.ok().body(groupService.getGroupWithTimeTableResponse(groupId));
   }
 
   @GetMapping("/api/groups/{id}")

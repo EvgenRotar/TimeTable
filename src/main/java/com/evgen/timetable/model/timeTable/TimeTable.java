@@ -31,7 +31,7 @@ public class TimeTable extends BaseEntity {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "TIME_TABLE_NAME", nullable = false, length = 32)
-  private TimeTableName TimeTableName;
+  private TimeTableName timeTableName;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "GROUP_ID", updatable = false)

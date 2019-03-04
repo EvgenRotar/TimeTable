@@ -114,12 +114,22 @@ public class TestDataInitializer {
   private void initTimeTable() {
     Teacher teacher = getTeacherByIdOrThrowException(6L);
     WorkDay workDay = getWorkDayByIdOrThrowException(1L);
-
     buildAndSaveLesson(getLessonByIdOrThrowException(1L), teacher, "400/2", "11:00", workDay);
     buildAndSaveLesson(getLessonByIdOrThrowException(2L), teacher, "430/2", "13:00", workDay);
     buildAndSaveLesson(getLessonByIdOrThrowException(3L), teacher, "440/2", "15:00", workDay);
     buildAndSaveLesson(getLessonByIdOrThrowException(4L), teacher, "410/2", "17:00", workDay);
 
+    workDay = getWorkDayByIdOrThrowException(2L);
+    buildAndSaveLesson(getLessonByIdOrThrowException(4L), teacher, "200/2", "11:00", workDay);
+    buildAndSaveLesson(getLessonByIdOrThrowException(3L), teacher, "230/2", "13:00", workDay);
+    buildAndSaveLesson(getLessonByIdOrThrowException(2L), teacher, "240/2", "15:00", workDay);
+    buildAndSaveLesson(getLessonByIdOrThrowException(1L), teacher, "210/2", "17:00", workDay);
+
+    workDay = getWorkDayByIdOrThrowException(3L);
+    buildAndSaveLesson(getLessonByIdOrThrowException(3L), teacher, "100/2", "11:00", workDay);
+    buildAndSaveLesson(getLessonByIdOrThrowException(4L), teacher, "130/2", "13:00", workDay);
+    buildAndSaveLesson(getLessonByIdOrThrowException(1L), teacher, "540/2", "15:00", workDay);
+    buildAndSaveLesson(getLessonByIdOrThrowException(2L), teacher, "510/2", "17:00", workDay);
   }
 
   private void buildAndSaveLesson(Lesson lesson, Teacher teacher, String place, String time, WorkDay workDay) {

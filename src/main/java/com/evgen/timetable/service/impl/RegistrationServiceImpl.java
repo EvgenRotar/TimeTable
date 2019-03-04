@@ -36,7 +36,6 @@ public class RegistrationServiceImpl implements RegistrationService {
   private final UserRoleRepository userRoleRepository;
   private final RoleRepository roleRepository;
   private final UserMapper userMapper;
-  private final TimeTableBuilder timeTableBuilder;
 
   private Role getUserRoleOrThrowException() throws RuntimeException {
     return roleRepository.findByRoleName(RoleName.STUDENT)

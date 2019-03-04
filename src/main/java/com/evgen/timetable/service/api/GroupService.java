@@ -14,7 +14,7 @@ public interface GroupService {
 
   GroupWithStudentsResponse getGroupWithStudents(Long groupId);
 
-  GroupWithTimeTableResponse groupWithTimeTableResponse(Long groupId);
+  GroupWithTimeTableResponse getGroupWithTimeTableResponse(Long groupId);
 
   GroupFullResponse getGroup(Long groupId);
 

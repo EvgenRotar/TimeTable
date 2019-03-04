@@ -18,7 +18,7 @@ import lombok.ToString;
 public class TimeTableResponse {
 
   private String timeTableId;
-  private TimeTableName TimeTableName;
+  private TimeTableName timeTableName;
   private Set<WorkDayResponse> workDays;
 
 }

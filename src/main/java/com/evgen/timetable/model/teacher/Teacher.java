@@ -5,7 +5,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import com.evgen.timetable.model.user.User;
 import com.evgen.timetable.model.workDay.LessonDay;
@@ -22,10 +21,9 @@ import lombok.Setter;
 @Getter
 @Builder
 @Entity
-@Table(name = "USER")
 public class Teacher extends User {
 
   @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
-  private Set<LessonDay> timeTable;
+  private Set<LessonDay> timeTables;
 
 }

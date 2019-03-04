@@ -6,22 +6,22 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.evgen.timetable.model.student.StudentResponse;
-import com.evgen.timetable.service.api.StudentService;
+import com.evgen.timetable.model.teacher.TeacherResponse;
+import com.evgen.timetable.service.api.TeacherService;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @CrossOrigin
 @Controller
-public class StudentController {
+public class TeacherController {
 
-  private final StudentService studentService;
+  private final TeacherService teacherService;
 
-  @GetMapping("/api/students/{id}")
-  public ResponseEntity<StudentResponse> getStudent(
-      @PathVariable("id") Long studentId) {
-    return ResponseEntity.ok().body(studentService.getStudentById(studentId));
+  @GetMapping("/api/teachers/{id}")
+  public ResponseEntity<TeacherResponse> getStudent(
+      @PathVariable("id") Long teacherId) {
+    return ResponseEntity.ok().body(teacherService.getTeacherById(teacherId));
   }
 
 }

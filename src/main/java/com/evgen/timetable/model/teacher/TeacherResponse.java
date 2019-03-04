@@ -1,5 +1,9 @@
 package com.evgen.timetable.model.teacher;
 
+import java.util.Set;
+
+import com.evgen.timetable.model.timeTable.TimeTableResponse;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +21,6 @@ public class TeacherResponse {
   private String login;
   private String userName;
   private String userSurname;
+  private Set<TimeTableResponse> timeTables;
 
 }

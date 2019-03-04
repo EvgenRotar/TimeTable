@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import com.evgen.timetable.model.group.Group;
 import com.evgen.timetable.model.user.User;
@@ -21,7 +20,6 @@ import lombok.Setter;
 @Getter
 @Builder
 @Entity
-@Table(name = "USER")
 public class Student extends User {
 
   @ManyToOne(fetch = FetchType.LAZY)

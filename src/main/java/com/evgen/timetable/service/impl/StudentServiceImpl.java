@@ -27,7 +27,6 @@ public class StudentServiceImpl implements StudentService {
   @Override
   public StudentResponse getStudentById(Long id) {
     return userMapper.studentToStudentResponse(getStudentByIdOrThrowException(id));
-
   }
 
 }
