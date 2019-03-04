@@ -43,13 +43,11 @@ public class GroupServiceImpl implements GroupService {
   @Override
   @Transactional(readOnly = true)
   public GroupWithStudentsResponse getGroupWithStudents(Long groupId) {
-    groupRepository.findGroupById(groupId);
     return groupMapper.groupToGroupWithStudentsResponse(getGroupByIdOrThrowException(groupId));
   }
 
   @Override
   public GroupWithTimeTableResponse getGroupWithTimeTableResponse(Long groupId) {
-    groupRepository.findGroupById(groupId);
     return groupMapper.groupToGroupWithTimeTableResponse(getGroupByIdOrThrowException(groupId));
   }
 
@@ -66,8 +64,8 @@ public class GroupServiceImpl implements GroupService {
 
     GroupResponse groupResponse = groupMapper.groupToGroupResponse(groupRepository.save(group));
 
-    timeTableBuilder.buildStudentTimeTable(group, TimeTableName.UP);
-    timeTableBuilder.buildStudentTimeTable(group, TimeTableName.DOWN);
+    timeTableBuilder.createStudentTimeTable(group, TimeTableName.FIRST);
+    timeTableBuilder.createStudentTimeTable(group, TimeTableName.SECOND);
 
     return groupResponse;
   }

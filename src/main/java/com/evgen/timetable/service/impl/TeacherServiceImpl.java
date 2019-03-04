@@ -42,6 +42,7 @@ public class TeacherServiceImpl implements TeacherService {
     return mapTeacherResponse(teacher);
   }
 
+//Todo: clean-up
   private TeacherResponse mapTeacherResponse(Teacher teacher) {
     TeacherResponse teacherResponse = new TeacherResponse();
     teacherResponse.setUserName(teacher.getUserName());
@@ -54,14 +55,14 @@ public class TeacherServiceImpl implements TeacherService {
     TimeTableResponse timeTableResponseUp = new TimeTableResponse();
     TimeTableResponse timeTableResponseDown = new TimeTableResponse();
 
-    timeTableResponseUp.setTimeTableName(TimeTableName.UP);
-    timeTableResponseDown.setTimeTableName(TimeTableName.DOWN);
+    timeTableResponseUp.setTimeTableName(TimeTableName.FIRST);
+    timeTableResponseDown.setTimeTableName(TimeTableName.SECOND);
 
     Map<DayName, WorkDayResponse> newWeekUp = buildNewWeek();
     Map<DayName, WorkDayResponse> newWeekDown = buildNewWeek();
 
     teacher.getTimeTables().forEach(lessonDay -> {
-      if (lessonDay.getWorkDay().getTimeTable().getTimeTableName().equals(TimeTableName.UP)) {
+      if (lessonDay.getWorkDay().getTimeTable().getTimeTableName().equals(TimeTableName.FIRST)) {
         buildWorkDayResponses(newWeekUp, lessonDay);
       } else {
         buildWorkDayResponses(newWeekDown, lessonDay);

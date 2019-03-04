@@ -19,12 +19,12 @@ public class TimeTableBuilder {
   private final TimeTableRepository timeTableRepository;
   private final WorkDayRepository workDayRepository;
 
-  public void buildStudentTimeTable(Group group, TimeTableName timeTableName) {
+  public void createStudentTimeTable(Group group, TimeTableName timeTableName) {
     TimeTable studentTimeTable = new TimeTable();
     studentTimeTable.setTimeTableName(timeTableName);
     studentTimeTable.setGroup(group);
 
-    timeTableRepository.save(studentTimeTable);
+    studentTimeTable = timeTableRepository.save(studentTimeTable);
     addWorkDays(studentTimeTable);
   }
 

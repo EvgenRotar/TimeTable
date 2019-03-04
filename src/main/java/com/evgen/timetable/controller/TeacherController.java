@@ -19,7 +19,7 @@ public class TeacherController {
   private final TeacherService teacherService;
 
   @GetMapping("/api/teachers/{id}")
-  public ResponseEntity<TeacherResponse> getStudent(
+  public ResponseEntity<TeacherResponse> getTeacher(
       @PathVariable("id") Long teacherId) {
     return ResponseEntity.ok().body(teacherService.getTeacherById(teacherId));
   }

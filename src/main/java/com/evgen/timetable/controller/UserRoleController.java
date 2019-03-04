@@ -26,7 +26,7 @@ public class UserRoleController {
   private UserRoleService userRoleService;
 
   @PostMapping("/api/user-role")
-  public ResponseEntity<UserRole> addRoleAssignment(
+  public ResponseEntity<UserRole> addUserRole(
       @RequestBody @Valid UserRoleRequest userRoleRequest) {
     UserRole response = userRoleService.addUserRole(userRoleRequest);
     UriComponents uriComponents = UriComponentsBuilder.fromPath("/api/user-role/{id}")
@@ -35,9 +35,9 @@ public class UserRoleController {
   }
 
   @DeleteMapping("/api/user-role/{id}")
-  public ResponseEntity<Void> deleteRoleAssignment(
-      @PathVariable("id") Long roleAssignmentId) {
-    userRoleService.deleteUserRole(roleAssignmentId);
+  public ResponseEntity<Void> deleteUserRole(
+      @PathVariable("id") Long userRoleId) {
+    userRoleService.deleteUserRole(userRoleId);
     return ResponseEntity.ok().build();
   }
 
