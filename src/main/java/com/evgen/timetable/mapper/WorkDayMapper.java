@@ -3,6 +3,7 @@ package com.evgen.timetable.mapper;
 import java.util.Set;
 
 import org.mapstruct.Context;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -24,4 +25,8 @@ public interface WorkDayMapper {
       @Context TeacherRepository teacherRepository,
       @Context LessonRepository lessonRepository);
 
+  //@Mapping(target = "id", source = "workDayId")
+  WorkDay workDayRequestToWorkDay(WorkDayRequest workDayRequest,
+      @Context TeacherRepository teacherRepository,
+      @Context LessonRepository lessonRepository);
 }

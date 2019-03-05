@@ -37,7 +37,7 @@ public class TimeTable extends BaseEntity {
   @JoinColumn(name = "GROUP_ID", updatable = false)
   private Group group;
 
-  @OneToMany(mappedBy = "timeTable", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "timeTable", cascade = CascadeType.MERGE, orphanRemoval = true)
   private Set<WorkDay> workDays;
 
 }

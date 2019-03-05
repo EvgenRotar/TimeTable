@@ -40,10 +40,10 @@ public interface LessonDayMapper {
   default Lesson lessonDayRequestToLesson(LessonDayRequest lessonDayRequest,
       @Context LessonRepository lessonRepository) {
     return lessonRepository.findByLessonName(lessonDayRequest.getLessonName())
-        .orElseThrow(() -> new RuntimeException("Teacher not found"));
+        .orElseThrow(() -> new RuntimeException("Lesson not found"));
   }
 
-  @Mapping(target = "lesson.lessonName", source = "lessonName")
+  @Mapping(target = "lesson", source = "lessonDayRequest", qualifiedByName = "lessonMap")
   @Mapping(target = "teacher", source = "lessonDayRequest", qualifiedByName = "teacherMap")
   void mapLessonDayFromLessonDayRequest(LessonDayRequest lessonDayRequest,
       @MappingTarget LessonDay lessonDay,

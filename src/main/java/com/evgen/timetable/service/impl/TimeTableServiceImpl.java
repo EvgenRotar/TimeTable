@@ -75,6 +75,7 @@ public class TimeTableServiceImpl implements TimeTableService {
     timeTableRepository.delete(getTimeTableByIdOrThrowException(id));
   }
 
+  //TODO:remove
   @Override
   public void updateTimeTableById(Long id, TimeTableUpdateRequest timeTableUpdateRequest) {
     TimeTable timeTable = getTimeTableByIdOrThrowException(id);
