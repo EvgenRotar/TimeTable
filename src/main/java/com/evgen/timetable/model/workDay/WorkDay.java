@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.evgen.timetable.model.BaseEntity;
+import com.evgen.timetable.model.lesson.LessonDay;
 import com.evgen.timetable.model.timeTable.TimeTable;
 
 import lombok.Getter;

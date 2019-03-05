@@ -1,4 +1,4 @@
-package com.evgen.timetable.model.workDay;
+package com.evgen.timetable.model.lesson;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,9 +14,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class LessonDayRequest {
+public class LessonDaySaveRequest {
 
   @NotNull
+  private Long workDayId;
+
+  @NotBlank
   private String lessonName;
 
   @NotBlank
@@ -30,4 +33,5 @@ public class LessonDayRequest {
 
   @NotBlank
   private String teacherSurname;
+
 }

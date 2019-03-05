@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.evgen.timetable.model.user.User;
-import com.evgen.timetable.model.workDay.LessonDay;
+import com.evgen.timetable.model.lesson.LessonDay;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

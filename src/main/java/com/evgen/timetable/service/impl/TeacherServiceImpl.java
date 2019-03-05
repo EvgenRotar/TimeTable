@@ -8,14 +8,15 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.evgen.timetable.mapper.LessonDayMapper;
 import com.evgen.timetable.mapper.UserMapper;
+import com.evgen.timetable.model.lesson.LessonDay;
+import com.evgen.timetable.model.lesson.LessonDayResponse;
 import com.evgen.timetable.model.teacher.Teacher;
 import com.evgen.timetable.model.teacher.TeacherResponse;
 import com.evgen.timetable.model.timeTable.TimeTableName;
 import com.evgen.timetable.model.timeTable.TimeTableResponse;
 import com.evgen.timetable.model.workDay.DayName;
-import com.evgen.timetable.model.workDay.LessonDay;
-import com.evgen.timetable.model.workDay.LessonResponse;
 import com.evgen.timetable.model.workDay.WorkDayResponse;
 import com.evgen.timetable.repository.TeacherRepository;
 import com.evgen.timetable.service.api.TeacherService;
@@ -29,6 +30,7 @@ public class TeacherServiceImpl implements TeacherService {
 
   private final TeacherRepository teacherRepository;
   private final UserMapper userMapper;
+  private final LessonDayMapper lessonDayMapper;
 
   private Teacher getTeacherByIdOrThrowException(Long id) {
     return teacherRepository.findById(id)
@@ -36,19 +38,22 @@ public class TeacherServiceImpl implements TeacherService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public TeacherResponse getTeacherById(Long id) {
     Teacher teacher = getTeacherByIdOrThrowException(id);
 
     return mapTeacherResponse(teacher);
   }
 
-//Todo: clean-up
+  //Todo: clean-up
   private TeacherResponse mapTeacherResponse(Teacher teacher) {
-    TeacherResponse teacherResponse = new TeacherResponse();
-    teacherResponse.setUserName(teacher.getUserName());
-    teacherResponse.setUserSurname(teacher.getUserSurname());
-    teacherResponse.setLogin(teacher.getLogin());
-    teacherResponse.setTeacherId(teacher.getId());
+
+    TeacherResponse teacherResponse = userMapper.teacherToTeacherResponse(teacher);
+//        new TeacherResponse();
+//    teacherResponse.setUserName(teacher.getUserName());
+//    teacherResponse.setUserSurname(teacher.getUserSurname());
+//    teacherResponse.setLogin(teacher.getLogin());
+//    teacherResponse.setTeacherId(teacher.getId());
 
     Set<TimeTableResponse> timeTableResponses = new HashSet<>();
 
@@ -78,18 +83,19 @@ public class TeacherServiceImpl implements TeacherService {
   }
 
   private void buildWorkDayResponses(Map<DayName, WorkDayResponse> newWeek, LessonDay lessonDay) {
-    newWeek.get(lessonDay.getWorkDay().getDayName()).getLessons().add(buildLessonResponse(lessonDay));
+    newWeek.get(lessonDay.getWorkDay().getDayName()).getLessons().add(lessonDayMapper.lessonDayToLessonDayResponse(lessonDay));
   }
 
-  private LessonResponse buildLessonResponse(LessonDay lessonDay) {
-    LessonResponse lessonResponse = new LessonResponse();
-    lessonResponse.setLessonTime(lessonDay.getLessonTime());
-    lessonResponse.setLesson(lessonDay.getLesson());
-    lessonResponse.setLessonPlace(lessonDay.getLessonPlace());
-    lessonResponse.setTeacherName(lessonDay.getTeacher().getUserName());
-    lessonResponse.setTeacherSurname(lessonDay.getTeacher().getUserSurname());
+  //TODO:remove
+  private LessonDayResponse buildLessonDayResponse(LessonDay lessonDay) {
+    LessonDayResponse lessonDayResponse = new LessonDayResponse();
+    lessonDayResponse.setLessonTime(lessonDay.getLessonTime());
+    lessonDayResponse.setLesson(lessonDay.getLesson());
+    lessonDayResponse.setLessonPlace(lessonDay.getLessonPlace());
+    lessonDayResponse.setTeacherName(lessonDay.getTeacher().getUserName());
+    lessonDayResponse.setTeacherSurname(lessonDay.getTeacher().getUserSurname());
 
-    return lessonResponse;
+    return lessonDayResponse;
   }
 
   private Map<DayName, WorkDayResponse> buildNewWeek() {

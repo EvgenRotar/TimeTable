@@ -1,4 +1,4 @@
-package com.evgen.timetable.model.workDay;
+package com.evgen.timetable.model.lesson;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import com.evgen.timetable.model.BaseEntity;
 import com.evgen.timetable.model.teacher.Teacher;
+import com.evgen.timetable.model.workDay.WorkDay;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

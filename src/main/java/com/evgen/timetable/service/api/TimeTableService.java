@@ -2,6 +2,7 @@ package com.evgen.timetable.service.api;
 
 import com.evgen.timetable.model.timeTable.TimeTableRequest;
 import com.evgen.timetable.model.timeTable.TimeTableResponse;
+import com.evgen.timetable.model.timeTable.TimeTableUpdateRequest;
 
 public interface TimeTableService {
 
@@ -11,6 +12,6 @@ public interface TimeTableService {
 
   void deleteTimeTableById(Long id);
 
-  void updateTimeTableById(Long id, TimeTableRequest timeTableRequest);
+  void updateTimeTableById(Long id, TimeTableUpdateRequest timeTableRequest);
 
 }

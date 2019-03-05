@@ -64,6 +64,7 @@ public class GroupServiceImpl implements GroupService {
 
     GroupResponse groupResponse = groupMapper.groupToGroupResponse(groupRepository.save(group));
 
+    //TODO: clean-up
     timeTableBuilder.createStudentTimeTable(group, TimeTableName.FIRST);
     timeTableBuilder.createStudentTimeTable(group, TimeTableName.SECOND);
 

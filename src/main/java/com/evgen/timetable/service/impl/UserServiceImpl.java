@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public UserResponse getUserById(Long id) {
     return userMapper.userToUserResponse(getUserByIdOrThrowException(id));
   }

@@ -7,15 +7,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.evgen.timetable.mapper.TimeTableMapper;
+import com.evgen.timetable.mapper.WorkDayMapper;
 import com.evgen.timetable.model.group.Group;
+import com.evgen.timetable.model.lesson.Lesson;
+import com.evgen.timetable.model.lesson.LessonDay;
+import com.evgen.timetable.model.lesson.LessonDayRequest;
 import com.evgen.timetable.model.teacher.Teacher;
 import com.evgen.timetable.model.timeTable.TimeTable;
 import com.evgen.timetable.model.timeTable.TimeTableRequest;
 import com.evgen.timetable.model.timeTable.TimeTableResponse;
+import com.evgen.timetable.model.timeTable.TimeTableUpdateRequest;
 import com.evgen.timetable.model.workDay.DayName;
-import com.evgen.timetable.model.workDay.Lesson;
-import com.evgen.timetable.model.workDay.LessonDay;
-import com.evgen.timetable.model.workDay.LessonDayRequest;
 import com.evgen.timetable.model.workDay.WorkDay;
 import com.evgen.timetable.model.workDay.WorkDayRequest;
 import com.evgen.timetable.repository.GroupRepository;
@@ -40,6 +42,7 @@ public class TimeTableServiceImpl implements TimeTableService {
   private final LessonRepository lessonRepository;
   private final TeacherRepository teacherRepository;
   private final TimeTableMapper timeTableMapper;
+  private final WorkDayMapper workDayMapper;
 
   private TimeTable getTimeTableByIdOrThrowException(Long id) {
     return timeTableRepository.findById(id)
@@ -48,7 +51,7 @@ public class TimeTableServiceImpl implements TimeTableService {
 
   private Teacher getTeacherOrThrowException(String teacherName, String teacherSurname) {
     return teacherRepository.findTeacherByUserNameAndUserSurname(teacherName, teacherSurname)
-        .orElseThrow(() -> new RuntimeException("TimeTable not found"));
+        .orElseThrow(() -> new RuntimeException("Teacher not found"));
   }
 
   private Group getGroupOrThrowException(String groupName) throws RuntimeException {
@@ -62,6 +65,7 @@ public class TimeTableServiceImpl implements TimeTableService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public TimeTableResponse getTimeTableById(Long id) {
     return timeTableMapper.timeTableToTimeTableResponse(getTimeTableByIdOrThrowException(id));
   }
@@ -72,11 +76,22 @@ public class TimeTableServiceImpl implements TimeTableService {
   }
 
   @Override
-  public void updateTimeTableById(Long id, TimeTableRequest timeTableRequest) {
-//Todo: implement
+  public void updateTimeTableById(Long id, TimeTableUpdateRequest timeTableUpdateRequest) {
+    TimeTable timeTable = getTimeTableByIdOrThrowException(id);
+    timeTableMapper.mapTimeTableFromTimeTableUpdateRequest(timeTableUpdateRequest, timeTable);
+    timeTableRepository.save(timeTable);
+
+    Set<WorkDay> workDays = timeTable.getWorkDays();
+    workDayMapper.mapWorkDaySetFromWorkDaysRequestSet(timeTableUpdateRequest.getWorkDays(), workDays, teacherRepository,
+        lessonRepository);
+    workDays.forEach(workDay -> {
+      workDayRepository.save(workDay);
+      workDay.getLessons().forEach(lessonDayRepository::save);
+    });
+
   }
 
-//Todo: clean-up
+  //TODO: clean-up
   @Override
   public TimeTableResponse addTimeTable(TimeTableRequest timeTableRequest) {
     Group group = getGroupOrThrowException(timeTableRequest.getGroupName());
@@ -90,7 +105,7 @@ public class TimeTableServiceImpl implements TimeTableService {
     return timeTableMapper.timeTableToTimeTableResponse(timeTable);
   }
 
-  public void addWorkDays(TimeTable timeTable, Set<WorkDayRequest> workDays) {
+  private void addWorkDays(TimeTable timeTable, Set<WorkDayRequest> workDays) {
     workDays.forEach(workDay -> saveWorkDay(timeTable, workDay.getDayName(), workDay.getLessons()));
   }
 

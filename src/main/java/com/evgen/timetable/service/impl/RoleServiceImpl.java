@@ -19,6 +19,7 @@ public class RoleServiceImpl implements RoleService {
   private final RoleRepository roleRepository;
 
   @Override
+  @Transactional(readOnly = true)
   public List<Role> getAllRoles() {
     return roleRepository.findAll();
   }

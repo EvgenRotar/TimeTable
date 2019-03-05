@@ -1,4 +1,4 @@
-package com.evgen.timetable.model.workDay;
+package com.evgen.timetable.model.lesson;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,8 +11,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class LessonResponse {
+public class LessonDayResponse {
 
+  private Long id;
   private Lesson lesson;
   private String lessonTime;
   private String lessonPlace;

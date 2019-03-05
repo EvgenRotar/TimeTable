@@ -1,4 +1,4 @@
-package com.evgen.timetable.model.workDay;
+package com.evgen.timetable.model.lesson;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

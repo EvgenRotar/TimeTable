@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.evgen.timetable.model.workDay.Lesson;
+import com.evgen.timetable.model.lesson.Lesson;
 
 public interface LessonRepository extends JpaRepository<Lesson, Long> {
 

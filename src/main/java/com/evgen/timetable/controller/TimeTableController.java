@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.evgen.timetable.model.timeTable.TimeTableRequest;
 import com.evgen.timetable.model.timeTable.TimeTableResponse;
+import com.evgen.timetable.model.timeTable.TimeTableUpdateRequest;
 import com.evgen.timetable.service.api.TimeTableService;
 
 import lombok.AllArgsConstructor;
@@ -52,7 +53,7 @@ public class TimeTableController {
   @PutMapping("/api/timeTables/{id}")
   public ResponseEntity<Void> updateTimeTableById(
       @PathVariable("id") Long timeTableId,
-      @RequestBody @Valid TimeTableRequest timeTableUpdateRequest) {
+      @RequestBody @Valid TimeTableUpdateRequest timeTableUpdateRequest) {
     timeTableService.updateTimeTableById(timeTableId, timeTableUpdateRequest);
     return ResponseEntity.accepted().build();
   }

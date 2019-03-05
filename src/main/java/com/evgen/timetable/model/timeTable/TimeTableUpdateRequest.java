@@ -1,10 +1,10 @@
-package com.evgen.timetable.model.workDay;
+package com.evgen.timetable.model.timeTable;
 
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
-import com.evgen.timetable.model.lesson.LessonDayRequest;
+import com.evgen.timetable.model.workDay.WorkDayRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,12 +17,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class WorkDayRequest {
+public class TimeTableUpdateRequest {
 
   @NotNull
-  private DayName dayName;
+  private TimeTableName timeTableName;
 
   @NotNull
-  private Set<LessonDayRequest> lessons;
+  private Set<WorkDayRequest> workDays;
 
 }

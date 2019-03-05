@@ -34,6 +34,7 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public StudentResponse getStudentById(Long id) {
     return userMapper.studentToStudentResponse(getStudentByIdOrThrowException(id));
   }
