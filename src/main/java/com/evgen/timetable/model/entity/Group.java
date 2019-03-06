@@ -23,7 +23,7 @@ import lombok.Setter;
 @Table(name = "STUDENT_GROUP")
 public class Group extends BaseEntity {
 
-  @Column(name = "GROUP_NAME", unique = true, nullable = false, length = 32, updatable = false)
+  @Column(name = "GROUP_NAME", unique = true, nullable = false, length = 32)
   private String groupName;
 
   @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)

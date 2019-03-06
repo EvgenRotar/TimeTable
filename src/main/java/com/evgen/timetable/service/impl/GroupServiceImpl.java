@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.evgen.timetable.Constants;
+import com.evgen.timetable.exception.NotFoundException;
 import com.evgen.timetable.mapper.GroupMapper;
 import com.evgen.timetable.model.dto.group.GroupFullResponse;
 import com.evgen.timetable.model.dto.group.GroupResponse;
@@ -43,19 +44,19 @@ public class GroupServiceImpl implements GroupService {
 
   @Override
   @Transactional(readOnly = true)
-  public GroupWithStudentsResponse getGroupWithStudents(Long groupId) {
+  public GroupWithStudentsResponse getGroupWithStudents(Long groupId) throws NotFoundException {
     return groupMapper.groupToGroupWithStudentsResponse(optionalDaoUtil.getGroupByIdOrThrowException(groupId));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public GroupWithTimeTableResponse getGroupWithTimeTableResponse(Long groupId) {
+  public GroupWithTimeTableResponse getGroupWithTimeTableResponse(Long groupId) throws NotFoundException {
     return groupMapper.groupToGroupWithTimeTableResponse(optionalDaoUtil.getGroupByIdOrThrowException(groupId));
   }
 
   @Override
   @Transactional(readOnly = true)
-  public GroupFullResponse getGroup(Long groupId) {
+  public GroupFullResponse getGroup(Long groupId) throws NotFoundException {
     return groupMapper.groupToGroupFullResponse(optionalDaoUtil.getGroupByIdOrThrowException(groupId));
   }
 
@@ -70,14 +71,14 @@ public class GroupServiceImpl implements GroupService {
   }
 
   @Override
-  public void updateGroup(Long groupId, GroupSaveRequest groupSaveRequest) {
+  public void updateGroup(Long groupId, GroupSaveRequest groupSaveRequest) throws NotFoundException {
     Group group = optionalDaoUtil.getGroupByIdOrThrowException(groupId);
     groupMapper.mapGroupFromGroupSaveRequest(groupSaveRequest, group);
     groupRepository.save(group);
   }
 
   @Override
-  public void deleteGroup(Long groupId) {
+  public void deleteGroup(Long groupId) throws NotFoundException {
     groupRepository.delete(optionalDaoUtil.getGroupByIdOrThrowException(groupId));
   }
 

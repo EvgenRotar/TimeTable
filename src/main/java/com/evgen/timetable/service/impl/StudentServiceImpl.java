@@ -3,6 +3,7 @@ package com.evgen.timetable.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.evgen.timetable.exception.NotFoundException;
 import com.evgen.timetable.mapper.UserMapper;
 import com.evgen.timetable.model.dto.student.StudentResponse;
 import com.evgen.timetable.model.dto.student.StudentUpdateRequest;
@@ -25,12 +26,12 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   @Transactional(readOnly = true)
-  public StudentResponse getStudentById(Long id) {
+  public StudentResponse getStudentById(Long id) throws NotFoundException {
     return userMapper.studentToStudentResponse(optionalDaoUtil.getStudentByIdOrThrowException(id));
   }
 
   @Override
-  public void updateGroupStudentById(Long id, StudentUpdateRequest studentUpdateRequest) {
+  public void updateGroupStudentById(Long id, StudentUpdateRequest studentUpdateRequest) throws NotFoundException {
     Group group = optionalDaoUtil.getGroupOrThrowException(studentUpdateRequest.getGroupName());
     Student student = optionalDaoUtil.getStudentByIdOrThrowException(id);
     student.setGroup(group);

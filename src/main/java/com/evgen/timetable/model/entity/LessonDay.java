@@ -27,17 +27,17 @@ public class LessonDay extends BaseEntity {
   private WorkDay workDay;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "LESSON_ID", nullable = false, updatable = false)
+  @JoinColumn(name = "LESSON_ID", nullable = false)
   private Lesson lesson;
 
-  @Column(name = "LESSON_TIME", nullable = false, length = 32, updatable = false)
+  @Column(name = "LESSON_TIME", nullable = false, length = 32)
   private String lessonTime;
 
-  @Column(name = "LESSON_PLACE", nullable = false, length = 32, updatable = false)
+  @Column(name = "LESSON_PLACE", nullable = false, length = 32)
   private String lessonPlace;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "TEACHER_ID", updatable = false)
+  @JoinColumn(name = "TEACHER_ID")
   private Teacher teacher;
 
 }

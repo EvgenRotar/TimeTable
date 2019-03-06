@@ -1,14 +1,15 @@
 package com.evgen.timetable.service.impl;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.evgen.timetable.Constants;
+import com.evgen.timetable.exception.NotFoundException;
 import com.evgen.timetable.mapper.LessonDayMapper;
 import com.evgen.timetable.mapper.UserMapper;
 import com.evgen.timetable.model.dto.teacher.TeacherResponse;
@@ -34,46 +35,38 @@ public class TeacherServiceImpl implements TeacherService {
 
   @Override
   @Transactional(readOnly = true)
-  public TeacherResponse getTeacherById(Long id) {
+  public TeacherResponse getTeacherById(Long id) throws NotFoundException {
     return mapTeacherResponse(optionalDaoUtil.getTeacherByIdOrThrowException(id));
   }
 
-  //Todo: clean-up
   private TeacherResponse mapTeacherResponse(Teacher teacher) {
     TeacherResponse teacherResponse = userMapper.teacherToTeacherResponse(teacher);
 
     Map<DayName, WorkDayResponse> newWeekUp = buildNewWeekMap();
     Map<DayName, WorkDayResponse> newWeekDown = buildNewWeekMap();
 
-    teacher.getTimeTables().forEach(lessonDay -> {
-      if (lessonDay.getWorkDay().getTimeTable().getTimeTableName().equals(TimeTableName.FIRST)) {
-        buildWorkDayResponses(newWeekUp, lessonDay);
-      } else {
-        buildWorkDayResponses(newWeekDown, lessonDay);
-      }
-    });
+    teacher.getTimeTables()
+        .forEach(lessonDay -> {
+          if (lessonDay.getWorkDay().getTimeTable().getTimeTableName().equals(TimeTableName.FIRST)) {
+            buildWorkDayResponses(newWeekUp, lessonDay);
+          } else {
+            buildWorkDayResponses(newWeekDown, lessonDay);
+          }
+        });
 
-    Set<TimeTableResponse> timeTableResponses = new HashSet<>();
-    timeTableResponses.add(
-        TimeTableResponse.builder()
-            .timeTableName(TimeTableName.FIRST)
-            .workDays(new HashSet<>(newWeekUp.values()))
-            .build()
-    );
-    timeTableResponses.add(
-        TimeTableResponse.builder()
-        .timeTableName(TimeTableName.SECOND)
-        .workDays(new HashSet<>(newWeekDown.values()))
-        .build()
-    );
+    teacherResponse.setTimeTables(new HashSet<>(
+        Arrays.asList(
+            buildTimeTableResponse(newWeekUp, TimeTableName.FIRST),
+            buildTimeTableResponse(newWeekDown, TimeTableName.SECOND)
+        )
+    ));
 
-    teacherResponse.setTimeTables(timeTableResponses);
     return teacherResponse;
   }
 
   private void buildWorkDayResponses(Map<DayName, WorkDayResponse> newWeek, LessonDay lessonDay) {
-    newWeek.get(lessonDay.getWorkDay().getDayName()).getLessons()
-        .add(lessonDayMapper.lessonDayToLessonDayResponse(lessonDay));
+    newWeek.get(lessonDay.getWorkDay().getDayName())
+        .getLessons().add(lessonDayMapper.lessonDayToLessonDayResponse(lessonDay));
   }
 
   private Map<DayName, WorkDayResponse> buildNewWeekMap() {
@@ -81,6 +74,13 @@ public class TeacherServiceImpl implements TeacherService {
     Constants.WEEK.forEach(dayName -> workDayResponses.put(dayName, buildWorkDay(dayName)));
 
     return workDayResponses;
+  }
+
+  private TimeTableResponse buildTimeTableResponse(Map<DayName, WorkDayResponse> week, TimeTableName first) {
+    return TimeTableResponse.builder()
+        .timeTableName(first)
+        .workDays(new HashSet<>(week.values()))
+        .build();
   }
 
   private WorkDayResponse buildWorkDay(DayName dayName) {

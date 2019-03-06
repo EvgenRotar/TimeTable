@@ -4,6 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.evgen.timetable.exception.NotFoundException;
 import com.evgen.timetable.mapper.UserMapper;
 import com.evgen.timetable.model.dto.student.StudentRegistrationRequest;
 import com.evgen.timetable.model.dto.student.StudentResponse;
@@ -42,7 +43,7 @@ public class RegistrationServiceImpl implements RegistrationService {
   }
 
   @Override
-  public StudentResponse registrationStudent(StudentRegistrationRequest studentRegistrationRequest) {
+  public StudentResponse registrationStudent(StudentRegistrationRequest studentRegistrationRequest) throws NotFoundException {
     Group group = optionalDaoUtil.getGroupOrThrowException(studentRegistrationRequest.getGroupName());
     Student student = new Student();
     userMapper.mapStudentFromStudentRegistrationRequest(studentRegistrationRequest, student);
@@ -57,7 +58,7 @@ public class RegistrationServiceImpl implements RegistrationService {
   }
 
   @Override
-  public TeacherResponse registrationTeacher(TeacherRegistrationRequest teacherRegistrationRequest) {
+  public TeacherResponse registrationTeacher(TeacherRegistrationRequest teacherRegistrationRequest) throws NotFoundException {
     Teacher teacher = new Teacher();
     userMapper.mapTeacherFromTeacherRegistrationRequest(teacherRegistrationRequest, teacher);
     teacher.setPassword(bCryptPasswordEncoder.encode(teacher.getPassword()));

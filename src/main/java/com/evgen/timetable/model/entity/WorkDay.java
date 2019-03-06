@@ -31,7 +31,7 @@ import lombok.Setter;
 public class WorkDay extends BaseEntity {
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "DAY_NAME", nullable = false, length = 32, updatable = false)
+  @Column(name = "DAY_NAME", nullable = false, length = 32)
   private DayName dayName;
 
   @OneToMany(mappedBy = "workDay", cascade = CascadeType.ALL, orphanRemoval = true)

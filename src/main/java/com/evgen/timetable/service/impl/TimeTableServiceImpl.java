@@ -1,15 +1,16 @@
 package com.evgen.timetable.service.impl;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.evgen.timetable.exception.NotFoundException;
 import com.evgen.timetable.mapper.TimeTableMapper;
 import com.evgen.timetable.model.dto.lesson.LessonDayRequest;
 import com.evgen.timetable.model.dto.timeTable.TimeTableRequest;
 import com.evgen.timetable.model.dto.timeTable.TimeTableResponse;
-import com.evgen.timetable.model.dto.workDay.WorkDayRequest;
 import com.evgen.timetable.model.entity.LessonDay;
 import com.evgen.timetable.model.entity.TimeTable;
 import com.evgen.timetable.model.entity.WorkDay;
@@ -35,17 +36,17 @@ public class TimeTableServiceImpl implements TimeTableService {
 
   @Override
   @Transactional(readOnly = true)
-  public TimeTableResponse getTimeTableById(Long id) {
+  public TimeTableResponse getTimeTableById(Long id) throws NotFoundException {
     return timeTableMapper.timeTableToTimeTableResponse(optionalDaoUtil.getTimeTableByIdOrThrowException(id));
   }
 
   @Override
-  public void deleteTimeTableById(Long id) {
+  public void deleteTimeTableById(Long id) throws NotFoundException {
     timeTableRepository.delete(optionalDaoUtil.getTimeTableByIdOrThrowException(id));
   }
 
   @Override
-  public TimeTableResponse addTimeTable(TimeTableRequest timeTableRequest) {
+  public TimeTableResponse addTimeTable(TimeTableRequest timeTableRequest) throws NotFoundException {
     TimeTable timeTable = timeTableRepository.save(
         TimeTable.builder()
             .timeTableName(timeTableRequest.getTimeTableName())
@@ -63,12 +64,12 @@ public class TimeTableServiceImpl implements TimeTableService {
     timeTableRequest.getWorkDays().forEach(workDayRequest -> {
       WorkDay savedWorkDay = saveWorkDay(timeTable, workDayRequest.getDayName());
       timeTable.getWorkDays().add(savedWorkDay);
-      addLessonsToWorkDay(workDayRequest, savedWorkDay);
+      addLessonsToWorkDay(workDayRequest.getLessons(), savedWorkDay);
     });
   }
 
-  private void addLessonsToWorkDay(WorkDayRequest workDayRequest, WorkDay savedWorkDay) {
-    workDayRequest.getLessons().forEach(
+  private void addLessonsToWorkDay(Set<LessonDayRequest> lessonDayRequests, WorkDay savedWorkDay) {
+    lessonDayRequests.forEach(
         lessonDayRequest -> savedWorkDay.getLessons().add(saveLessons(lessonDayRequest, savedWorkDay))
     );
   }

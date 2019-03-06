@@ -6,6 +6,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
+import com.evgen.timetable.exception.NotFoundException;
 import com.evgen.timetable.model.dto.lesson.LessonDayRequest;
 import com.evgen.timetable.model.dto.lesson.LessonDayResponse;
 import com.evgen.timetable.model.entity.Lesson;
@@ -39,14 +40,14 @@ public interface LessonDayMapper {
       @Context TeacherRepository teacherRepository) {
     return teacherRepository
         .findTeacherByUserNameAndUserSurname(lessonDayRequest.getTeacherName(), lessonDayRequest.getTeacherSurname())
-        .orElseThrow(() -> new RuntimeException("Teacher not found"));
+        .orElseThrow(() -> new NotFoundException("Teacher not found"));
   }
 
   @Named("lessonMap")
   default Lesson lessonDayRequestToLesson(LessonDayRequest lessonDayRequest,
       @Context LessonRepository lessonRepository) {
     return lessonRepository.findByLessonName(lessonDayRequest.getLessonName())
-        .orElseThrow(() -> new RuntimeException("Lesson not found"));
+        .orElseThrow(() -> new NotFoundException("Lesson not found"));
   }
 
 }

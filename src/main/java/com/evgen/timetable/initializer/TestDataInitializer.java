@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.evgen.timetable.exception.NotFoundException;
 import com.evgen.timetable.model.dto.group.GroupSaveRequest;
 import com.evgen.timetable.model.entity.Role;
 import com.evgen.timetable.model.name.RoleName;
@@ -96,19 +97,19 @@ public class TestDataInitializer {
     log.info("==========================");
   }
 
-  private Lesson getLessonByIdOrThrowException(Long id) {
+  private Lesson getLessonByIdOrThrowException(Long id) throws NotFoundException {
     return lessonRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException(String.format("lesson with id %d not found", id)));
+        .orElseThrow(() -> new NotFoundException(String.format("lesson with id %d not found", id)));
   }
 
-  private Teacher getTeacherByIdOrThrowException(Long id) {
+  private Teacher getTeacherByIdOrThrowException(Long id) throws NotFoundException {
     return teacherRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException(String.format("lesson with id %d not found", id)));
+        .orElseThrow(() -> new NotFoundException(String.format("lesson with id %d not found", id)));
   }
 
-  private WorkDay getWorkDayByIdOrThrowException(Long id) {
+  private WorkDay getWorkDayByIdOrThrowException(Long id) throws NotFoundException {
     return workDayRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException(String.format("day with id %d not found", id)));
+        .orElseThrow(() -> new NotFoundException(String.format("day with id %d not found", id)));
   }
 
   private void initTimeTable() {

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.evgen.timetable.exception.NotFoundException;
 import com.evgen.timetable.model.dto.lesson.LessonRequest;
 import com.evgen.timetable.model.entity.Lesson;
 import com.evgen.timetable.repository.LessonRepository;
@@ -29,7 +30,7 @@ public class LessonServiceImpl implements LessonService {
 
   @Override
   @Transactional(readOnly = true)
-  public Lesson getLessonById(Long id) {
+  public Lesson getLessonById(Long id) throws NotFoundException {
     return optionalDaoUtil.getLessonByIdOrThrowException(id);
   }
 
@@ -39,12 +40,12 @@ public class LessonServiceImpl implements LessonService {
   }
 
   @Override
-  public void deleteLessonById(Long id) {
+  public void deleteLessonById(Long id) throws NotFoundException {
     lessonRepository.delete(optionalDaoUtil.getLessonByIdOrThrowException(id));
   }
 
   @Override
-  public void updateLessonById(Long id, LessonRequest lessonRequest) {
+  public void updateLessonById(Long id, LessonRequest lessonRequest) throws NotFoundException {
     Lesson lesson = optionalDaoUtil.getLessonByIdOrThrowException(id);
     lesson.setLessonName(lessonRequest.getLessonName());
     lessonRepository.save(lesson);

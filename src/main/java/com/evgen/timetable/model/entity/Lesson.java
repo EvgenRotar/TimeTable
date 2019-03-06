@@ -17,7 +17,7 @@ import lombok.Setter;
 @Table(name = "LESSON")
 public class Lesson extends BaseEntity {
 
-  @Column(name = "LESSON_NAME", unique = true, nullable = false, length = 32, updatable = false)
+  @Column(name = "LESSON_NAME", unique = true, nullable = false, length = 32)
   private String lessonName;
 
 }

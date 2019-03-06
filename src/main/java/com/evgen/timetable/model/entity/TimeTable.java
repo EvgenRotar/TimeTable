@@ -35,7 +35,7 @@ public class TimeTable extends BaseEntity {
   private TimeTableName timeTableName;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "GROUP_ID", updatable = false)
+  @JoinColumn(name = "GROUP_ID")
   private Group group;
 
   @OneToMany(mappedBy = "timeTable", cascade = CascadeType.MERGE, orphanRemoval = true)

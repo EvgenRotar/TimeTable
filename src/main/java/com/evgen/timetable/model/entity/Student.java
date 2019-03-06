@@ -20,7 +20,7 @@ import lombok.Setter;
 public class Student extends User {
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "GROUP_ID", updatable = false)
+  @JoinColumn(name = "GROUP_ID")
   private Group group;
 
 }

@@ -3,6 +3,7 @@ package com.evgen.timetable.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.evgen.timetable.exception.NotFoundException;
 import com.evgen.timetable.mapper.UserRoleMapper;
 import com.evgen.timetable.model.dto.user.UserRoleRequest;
 import com.evgen.timetable.model.dto.user.UserRoleResponse;
@@ -23,7 +24,7 @@ public class UserRoleServiceImpl implements UserRoleService {
   private final UserRoleMapper userRoleMapper;
 
   @Override
-  public UserRoleResponse addUserRole(UserRoleRequest userRoleRequest) throws RuntimeException {
+  public UserRoleResponse addUserRole(UserRoleRequest userRoleRequest) throws NotFoundException {
     UserRole userRole = UserRole.builder()
         .user(optionalDaoUtil.getUserByIdOrThrowException(userRoleRequest.getUserId()))
         .role(optionalDaoUtil.getRoleByIdOrThrowException(userRoleRequest.getRoleId()))
@@ -33,7 +34,7 @@ public class UserRoleServiceImpl implements UserRoleService {
   }
 
   @Override
-  public void deleteUserRole(Long id) throws RuntimeException {
+  public void deleteUserRole(Long id) throws NotFoundException {
     userRoleRepository.delete(optionalDaoUtil.getUserRoleByIdOrThrowException(id));
   }
 
