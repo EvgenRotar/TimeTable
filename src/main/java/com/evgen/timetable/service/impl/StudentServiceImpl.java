@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.evgen.timetable.mapper.UserMapper;
-import com.evgen.timetable.model.group.Group;
-import com.evgen.timetable.model.student.Student;
-import com.evgen.timetable.model.student.StudentResponse;
-import com.evgen.timetable.model.student.StudentUpdateRequest;
+import com.evgen.timetable.model.entity.Group;
+import com.evgen.timetable.model.entity.Student;
+import com.evgen.timetable.model.dto.student.StudentResponse;
+import com.evgen.timetable.model.dto.student.StudentUpdateRequest;
 import com.evgen.timetable.repository.GroupRepository;
 import com.evgen.timetable.repository.StudentRepository;
 import com.evgen.timetable.service.api.StudentService;

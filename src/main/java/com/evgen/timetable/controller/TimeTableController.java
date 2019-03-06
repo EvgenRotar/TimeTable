@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.evgen.timetable.model.timeTable.TimeTableRequest;
-import com.evgen.timetable.model.timeTable.TimeTableResponse;
-import com.evgen.timetable.model.timeTable.TimeTableUpdateRequest;
+import com.evgen.timetable.model.dto.timeTable.TimeTableRequest;
+import com.evgen.timetable.model.dto.timeTable.TimeTableResponse;
+import com.evgen.timetable.model.dto.timeTable.TimeTableUpdateRequest;
 import com.evgen.timetable.service.api.TimeTableService;
 
 import lombok.AllArgsConstructor;

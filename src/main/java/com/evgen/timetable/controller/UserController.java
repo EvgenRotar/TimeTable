@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.evgen.timetable.model.user.UserResponse;
-import com.evgen.timetable.model.user.UserUpdateRequest;
+import com.evgen.timetable.model.dto.user.UserResponse;
+import com.evgen.timetable.model.dto.user.UserUpdateRequest;
 import com.evgen.timetable.service.api.UserService;
 
 import lombok.AllArgsConstructor;

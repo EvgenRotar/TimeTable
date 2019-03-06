@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.evgen.timetable.model.role.Role;
-import com.evgen.timetable.model.role.RoleName;
+import com.evgen.timetable.model.entity.Role;
+import com.evgen.timetable.model.name.RoleName;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
 

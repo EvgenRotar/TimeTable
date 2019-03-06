@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.evgen.timetable.mapper.UserMapper;
-import com.evgen.timetable.model.user.User;
-import com.evgen.timetable.model.user.UserResponse;
-import com.evgen.timetable.model.user.UserUpdateRequest;
+import com.evgen.timetable.model.entity.User;
+import com.evgen.timetable.model.dto.user.UserResponse;
+import com.evgen.timetable.model.dto.user.UserUpdateRequest;
 import com.evgen.timetable.repository.UserRepository;
 import com.evgen.timetable.service.api.UserService;
 

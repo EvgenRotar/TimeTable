@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.evgen.timetable.model.group.Group;
-import com.evgen.timetable.model.role.Role;
-import com.evgen.timetable.model.role.RoleName;
+import com.evgen.timetable.model.entity.Group;
+import com.evgen.timetable.model.entity.Role;
+import com.evgen.timetable.model.name.RoleName;
 import com.evgen.timetable.repository.GroupRepository;
 import com.evgen.timetable.repository.RoleRepository;
 import com.evgen.timetable.repository.UserRepository;

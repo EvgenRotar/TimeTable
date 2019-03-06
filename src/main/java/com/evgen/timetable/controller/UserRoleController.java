@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.evgen.timetable.model.user.UserRole;
-import com.evgen.timetable.model.user.UserRoleRequest;
+import com.evgen.timetable.model.entity.UserRole;
+import com.evgen.timetable.model.dto.user.UserRoleRequest;
 import com.evgen.timetable.service.api.UserRoleService;
 
 import lombok.AllArgsConstructor;
@@ -29,7 +29,7 @@ public class UserRoleController {
   public ResponseEntity<UserRole> addUserRole(
       @RequestBody @Valid UserRoleRequest userRoleRequest) {
     UserRole response = userRoleService.addUserRole(userRoleRequest);
-    UriComponents uriComponents = UriComponentsBuilder.fromPath("/api/user-role/{id}")
+    UriComponents uriComponents = UriComponentsBuilder.fromPath("/api/user-name/{id}")
         .buildAndExpand(response.getId());
     return ResponseEntity.created(uriComponents.toUri()).body(response);
   }

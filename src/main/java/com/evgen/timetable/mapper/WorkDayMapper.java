@@ -3,14 +3,13 @@ package com.evgen.timetable.mapper;
 import java.util.Set;
 
 import org.mapstruct.Context;
-import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.evgen.timetable.model.workDay.WorkDay;
-import com.evgen.timetable.model.workDay.WorkDayRequest;
-import com.evgen.timetable.model.workDay.WorkDayResponse;
+import com.evgen.timetable.model.entity.WorkDay;
+import com.evgen.timetable.model.dto.workDay.WorkDayRequest;
+import com.evgen.timetable.model.dto.workDay.WorkDayResponse;
 import com.evgen.timetable.repository.LessonRepository;
 import com.evgen.timetable.repository.TeacherRepository;
 

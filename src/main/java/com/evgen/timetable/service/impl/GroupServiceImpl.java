@@ -7,13 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.evgen.timetable.builder.TimeTableBuilder;
 import com.evgen.timetable.mapper.GroupMapper;
-import com.evgen.timetable.model.group.Group;
-import com.evgen.timetable.model.group.GroupFullResponse;
-import com.evgen.timetable.model.group.GroupResponse;
-import com.evgen.timetable.model.group.GroupSaveRequest;
-import com.evgen.timetable.model.group.GroupWithStudentsResponse;
-import com.evgen.timetable.model.group.GroupWithTimeTableResponse;
-import com.evgen.timetable.model.timeTable.TimeTableName;
+import com.evgen.timetable.model.entity.Group;
+import com.evgen.timetable.model.dto.group.GroupFullResponse;
+import com.evgen.timetable.model.dto.group.GroupResponse;
+import com.evgen.timetable.model.dto.group.GroupSaveRequest;
+import com.evgen.timetable.model.dto.group.GroupWithStudentsResponse;
+import com.evgen.timetable.model.dto.group.GroupWithTimeTableResponse;
+import com.evgen.timetable.model.name.TimeTableName;
 import com.evgen.timetable.repository.GroupRepository;
 import com.evgen.timetable.service.api.GroupService;
 

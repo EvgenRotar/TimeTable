@@ -3,10 +3,10 @@ package com.evgen.timetable.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.evgen.timetable.model.role.Role;
-import com.evgen.timetable.model.user.User;
-import com.evgen.timetable.model.user.UserRole;
-import com.evgen.timetable.model.user.UserRoleRequest;
+import com.evgen.timetable.model.entity.Role;
+import com.evgen.timetable.model.entity.User;
+import com.evgen.timetable.model.entity.UserRole;
+import com.evgen.timetable.model.dto.user.UserRoleRequest;
 import com.evgen.timetable.repository.RoleRepository;
 import com.evgen.timetable.repository.UserRepository;
 import com.evgen.timetable.repository.UserRoleRepository;
@@ -25,7 +25,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
   private UserRole getUserRoleByIdOrThrowException(Long id) {
     return userRoleRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException(String.format("role assignment with id %d not found", id)));
+        .orElseThrow(() -> new RuntimeException(String.format("name assignment with id %d not found", id)));
   }
 
   private User getUserByIdOrThrowException(Long id) {
@@ -35,7 +35,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
   public Role getRoleByIdOrThrowException(Long id) throws RuntimeException {
     return roleRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException(String.format("role with id %d not found", id)));
+        .orElseThrow(() -> new RuntimeException(String.format("name with id %d not found", id)));
   }
 
   @Override

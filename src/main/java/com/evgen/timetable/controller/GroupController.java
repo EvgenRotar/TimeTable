@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.evgen.timetable.model.group.GroupFullResponse;
-import com.evgen.timetable.model.group.GroupResponse;
-import com.evgen.timetable.model.group.GroupSaveRequest;
-import com.evgen.timetable.model.group.GroupWithStudentsResponse;
-import com.evgen.timetable.model.group.GroupWithTimeTableResponse;
+import com.evgen.timetable.model.dto.group.GroupFullResponse;
+import com.evgen.timetable.model.dto.group.GroupResponse;
+import com.evgen.timetable.model.dto.group.GroupSaveRequest;
+import com.evgen.timetable.model.dto.group.GroupWithStudentsResponse;
+import com.evgen.timetable.model.dto.group.GroupWithTimeTableResponse;
 import com.evgen.timetable.service.api.GroupService;
 
 import lombok.AllArgsConstructor;

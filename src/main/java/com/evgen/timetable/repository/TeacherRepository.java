@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.evgen.timetable.model.teacher.Teacher;
+import com.evgen.timetable.model.entity.Teacher;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 

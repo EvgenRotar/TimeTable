@@ -4,19 +4,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.evgen.timetable.builder.TimeTableBuilder;
 import com.evgen.timetable.mapper.UserMapper;
-import com.evgen.timetable.model.group.Group;
-import com.evgen.timetable.model.role.Role;
-import com.evgen.timetable.model.role.RoleName;
-import com.evgen.timetable.model.student.Student;
-import com.evgen.timetable.model.student.StudentRegistrationRequest;
-import com.evgen.timetable.model.student.StudentResponse;
-import com.evgen.timetable.model.teacher.Teacher;
-import com.evgen.timetable.model.teacher.TeacherRegistrationRequest;
-import com.evgen.timetable.model.teacher.TeacherResponse;
-import com.evgen.timetable.model.user.User;
-import com.evgen.timetable.model.user.UserRole;
+import com.evgen.timetable.model.entity.Group;
+import com.evgen.timetable.model.entity.Role;
+import com.evgen.timetable.model.name.RoleName;
+import com.evgen.timetable.model.entity.Student;
+import com.evgen.timetable.model.dto.student.StudentRegistrationRequest;
+import com.evgen.timetable.model.dto.student.StudentResponse;
+import com.evgen.timetable.model.entity.Teacher;
+import com.evgen.timetable.model.dto.teacher.TeacherRegistrationRequest;
+import com.evgen.timetable.model.dto.teacher.TeacherResponse;
+import com.evgen.timetable.model.entity.User;
+import com.evgen.timetable.model.entity.UserRole;
 import com.evgen.timetable.repository.GroupRepository;
 import com.evgen.timetable.repository.RoleRepository;
 import com.evgen.timetable.repository.UserRepository;
@@ -39,12 +38,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 
   private Role getUserRoleOrThrowException() throws RuntimeException {
     return roleRepository.findByRoleName(RoleName.STUDENT)
-        .orElseThrow(() -> new RuntimeException("role with Student name not found"));
+        .orElseThrow(() -> new RuntimeException("name with Student name not found"));
   }
 
   private Role getAdminRoleOrThrowException() throws RuntimeException {
     return roleRepository.findByRoleName(RoleName.ADMIN)
-        .orElseThrow(() -> new RuntimeException("role with Admin name not found"));
+        .orElseThrow(() -> new RuntimeException("name with Admin name not found"));
   }
 
   private Group getGroupOrThrowException(String groupName) throws RuntimeException {

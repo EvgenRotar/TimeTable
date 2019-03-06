@@ -6,11 +6,11 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
-import com.evgen.timetable.model.lesson.Lesson;
-import com.evgen.timetable.model.lesson.LessonDay;
-import com.evgen.timetable.model.lesson.LessonDayRequest;
-import com.evgen.timetable.model.lesson.LessonDayResponse;
-import com.evgen.timetable.model.teacher.Teacher;
+import com.evgen.timetable.model.entity.Lesson;
+import com.evgen.timetable.model.entity.LessonDay;
+import com.evgen.timetable.model.dto.lesson.LessonDayRequest;
+import com.evgen.timetable.model.dto.lesson.LessonDayResponse;
+import com.evgen.timetable.model.entity.Teacher;
 import com.evgen.timetable.repository.LessonRepository;
 import com.evgen.timetable.repository.TeacherRepository;
 

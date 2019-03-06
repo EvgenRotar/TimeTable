@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.evgen.timetable.model.student.StudentRegistrationRequest;
-import com.evgen.timetable.model.student.StudentResponse;
-import com.evgen.timetable.model.teacher.TeacherRegistrationRequest;
-import com.evgen.timetable.model.teacher.TeacherResponse;
+import com.evgen.timetable.model.dto.student.StudentRegistrationRequest;
+import com.evgen.timetable.model.dto.student.StudentResponse;
+import com.evgen.timetable.model.dto.teacher.TeacherRegistrationRequest;
+import com.evgen.timetable.model.dto.teacher.TeacherResponse;
 import com.evgen.timetable.service.api.RegistrationService;
 
 import lombok.AllArgsConstructor;

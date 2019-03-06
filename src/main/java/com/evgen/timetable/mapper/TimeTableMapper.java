@@ -4,9 +4,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.evgen.timetable.model.timeTable.TimeTable;
-import com.evgen.timetable.model.timeTable.TimeTableResponse;
-import com.evgen.timetable.model.timeTable.TimeTableUpdateRequest;
+import com.evgen.timetable.model.entity.TimeTable;
+import com.evgen.timetable.model.dto.timeTable.TimeTableResponse;
+import com.evgen.timetable.model.dto.timeTable.TimeTableUpdateRequest;
 
 @Mapper(componentModel = "spring", uses = WorkDayMapper.class)
 public interface TimeTableMapper {

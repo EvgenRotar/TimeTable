@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.evgen.timetable.model.lesson.Lesson;
-import com.evgen.timetable.model.lesson.LessonRequest;
+import com.evgen.timetable.model.entity.Lesson;
+import com.evgen.timetable.model.dto.lesson.LessonRequest;
 import com.evgen.timetable.repository.LessonRepository;
 import com.evgen.timetable.service.api.LessonService;
 

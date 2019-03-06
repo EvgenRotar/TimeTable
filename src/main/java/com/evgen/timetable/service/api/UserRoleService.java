@@ -1,7 +1,7 @@
 package com.evgen.timetable.service.api;
 
-import com.evgen.timetable.model.user.UserRole;
-import com.evgen.timetable.model.user.UserRoleRequest;
+import com.evgen.timetable.model.entity.UserRole;
+import com.evgen.timetable.model.dto.user.UserRoleRequest;
 
 public interface UserRoleService {
 

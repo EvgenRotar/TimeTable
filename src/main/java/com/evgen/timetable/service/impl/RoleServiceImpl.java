@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.evgen.timetable.model.role.Role;
+import com.evgen.timetable.model.entity.Role;
 import com.evgen.timetable.repository.RoleRepository;
 import com.evgen.timetable.service.api.RoleService;
 

@@ -2,8 +2,8 @@ package com.evgen.timetable.service.api;
 
 import java.util.List;
 
-import com.evgen.timetable.model.user.UserResponse;
-import com.evgen.timetable.model.user.UserUpdateRequest;
+import com.evgen.timetable.model.dto.user.UserResponse;
+import com.evgen.timetable.model.dto.user.UserUpdateRequest;
 
 public interface UserService {
 

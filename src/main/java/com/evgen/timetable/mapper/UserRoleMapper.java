@@ -3,8 +3,8 @@ package com.evgen.timetable.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.evgen.timetable.model.role.Role;
-import com.evgen.timetable.model.user.UserRole;
+import com.evgen.timetable.model.entity.Role;
+import com.evgen.timetable.model.entity.UserRole;
 
 @Mapper(componentModel = "spring")
 public interface UserRoleMapper {

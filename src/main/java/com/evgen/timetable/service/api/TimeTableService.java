@@ -1,8 +1,8 @@
 package com.evgen.timetable.service.api;
 
-import com.evgen.timetable.model.timeTable.TimeTableRequest;
-import com.evgen.timetable.model.timeTable.TimeTableResponse;
-import com.evgen.timetable.model.timeTable.TimeTableUpdateRequest;
+import com.evgen.timetable.model.dto.timeTable.TimeTableRequest;
+import com.evgen.timetable.model.dto.timeTable.TimeTableResponse;
+import com.evgen.timetable.model.dto.timeTable.TimeTableUpdateRequest;
 
 public interface TimeTableService {
 

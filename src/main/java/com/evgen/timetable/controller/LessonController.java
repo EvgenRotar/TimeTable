@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.evgen.timetable.model.lesson.Lesson;
-import com.evgen.timetable.model.lesson.LessonRequest;
+import com.evgen.timetable.model.entity.Lesson;
+import com.evgen.timetable.model.dto.lesson.LessonRequest;
 import com.evgen.timetable.service.api.LessonService;
 
 import lombok.AllArgsConstructor;

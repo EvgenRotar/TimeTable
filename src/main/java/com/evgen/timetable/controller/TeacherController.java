@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.evgen.timetable.model.teacher.TeacherResponse;
+import com.evgen.timetable.model.dto.teacher.TeacherResponse;
 import com.evgen.timetable.service.api.TeacherService;
 
 import lombok.AllArgsConstructor;

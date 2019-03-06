@@ -1,7 +1,7 @@
 package com.evgen.timetable.service.api;
 
-import com.evgen.timetable.model.student.StudentResponse;
-import com.evgen.timetable.model.student.StudentUpdateRequest;
+import com.evgen.timetable.model.dto.student.StudentResponse;
+import com.evgen.timetable.model.dto.student.StudentUpdateRequest;
 
 public interface StudentService {
 

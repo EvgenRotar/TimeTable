@@ -1,8 +1,8 @@
 package com.evgen.timetable.service.api;
 
-import com.evgen.timetable.model.lesson.LessonDayRequest;
-import com.evgen.timetable.model.lesson.LessonDayResponse;
-import com.evgen.timetable.model.lesson.LessonDaySaveRequest;
+import com.evgen.timetable.model.dto.lesson.LessonDayRequest;
+import com.evgen.timetable.model.dto.lesson.LessonDayResponse;
+import com.evgen.timetable.model.dto.lesson.LessonDaySaveRequest;
 
 public interface LessonDayService {
 

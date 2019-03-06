@@ -7,12 +7,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.evgen.timetable.model.group.Group;
-import com.evgen.timetable.model.group.GroupFullResponse;
-import com.evgen.timetable.model.group.GroupResponse;
-import com.evgen.timetable.model.group.GroupSaveRequest;
-import com.evgen.timetable.model.group.GroupWithStudentsResponse;
-import com.evgen.timetable.model.group.GroupWithTimeTableResponse;
+import com.evgen.timetable.model.entity.Group;
+import com.evgen.timetable.model.dto.group.GroupFullResponse;
+import com.evgen.timetable.model.dto.group.GroupResponse;
+import com.evgen.timetable.model.dto.group.GroupSaveRequest;
+import com.evgen.timetable.model.dto.group.GroupWithStudentsResponse;
+import com.evgen.timetable.model.dto.group.GroupWithTimeTableResponse;
 
 @Mapper(componentModel = "spring", uses = {UserResponseMapper.class, TimeTableMapper.class})
 public interface GroupMapper {

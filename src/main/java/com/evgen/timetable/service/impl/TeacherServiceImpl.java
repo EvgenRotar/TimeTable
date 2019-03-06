@@ -10,14 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.evgen.timetable.mapper.LessonDayMapper;
 import com.evgen.timetable.mapper.UserMapper;
-import com.evgen.timetable.model.lesson.LessonDay;
-import com.evgen.timetable.model.lesson.LessonDayResponse;
-import com.evgen.timetable.model.teacher.Teacher;
-import com.evgen.timetable.model.teacher.TeacherResponse;
-import com.evgen.timetable.model.timeTable.TimeTableName;
-import com.evgen.timetable.model.timeTable.TimeTableResponse;
-import com.evgen.timetable.model.workDay.DayName;
-import com.evgen.timetable.model.workDay.WorkDayResponse;
+import com.evgen.timetable.model.entity.LessonDay;
+import com.evgen.timetable.model.dto.lesson.LessonDayResponse;
+import com.evgen.timetable.model.entity.Teacher;
+import com.evgen.timetable.model.dto.teacher.TeacherResponse;
+import com.evgen.timetable.model.name.TimeTableName;
+import com.evgen.timetable.model.dto.timeTable.TimeTableResponse;
+import com.evgen.timetable.model.name.DayName;
+import com.evgen.timetable.model.dto.workDay.WorkDayResponse;
 import com.evgen.timetable.repository.TeacherRepository;
 import com.evgen.timetable.service.api.TeacherService;
 

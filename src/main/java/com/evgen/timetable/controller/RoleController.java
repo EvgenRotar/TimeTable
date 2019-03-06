@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.evgen.timetable.model.role.Role;
+import com.evgen.timetable.model.entity.Role;
 import com.evgen.timetable.service.api.RoleService;
 
 import lombok.AllArgsConstructor;

@@ -2,11 +2,11 @@ package com.evgen.timetable.builder;
 
 import org.springframework.stereotype.Component;
 
-import com.evgen.timetable.model.group.Group;
-import com.evgen.timetable.model.timeTable.TimeTable;
-import com.evgen.timetable.model.timeTable.TimeTableName;
-import com.evgen.timetable.model.workDay.DayName;
-import com.evgen.timetable.model.workDay.WorkDay;
+import com.evgen.timetable.model.entity.Group;
+import com.evgen.timetable.model.entity.TimeTable;
+import com.evgen.timetable.model.name.TimeTableName;
+import com.evgen.timetable.model.name.DayName;
+import com.evgen.timetable.model.entity.WorkDay;
 import com.evgen.timetable.repository.TimeTableRepository;
 import com.evgen.timetable.repository.WorkDayRepository;
 
