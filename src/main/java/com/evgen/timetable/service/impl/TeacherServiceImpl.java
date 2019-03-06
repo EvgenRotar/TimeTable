@@ -8,9 +8,9 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.evgen.timetable.Constants;
 import com.evgen.timetable.mapper.LessonDayMapper;
 import com.evgen.timetable.mapper.UserMapper;
-import com.evgen.timetable.model.dto.lesson.LessonDayResponse;
 import com.evgen.timetable.model.dto.teacher.TeacherResponse;
 import com.evgen.timetable.model.dto.timeTable.TimeTableResponse;
 import com.evgen.timetable.model.dto.workDay.WorkDayResponse;
@@ -40,24 +40,10 @@ public class TeacherServiceImpl implements TeacherService {
 
   //Todo: clean-up
   private TeacherResponse mapTeacherResponse(Teacher teacher) {
-
     TeacherResponse teacherResponse = userMapper.teacherToTeacherResponse(teacher);
-//        new TeacherResponse();
-//    teacherResponse.setUserName(teacher.getUserName());
-//    teacherResponse.setUserSurname(teacher.getUserSurname());
-//    teacherResponse.setLogin(teacher.getLogin());
-//    teacherResponse.setTeacherId(teacher.getId());
 
-    Set<TimeTableResponse> timeTableResponses = new HashSet<>();
-
-    TimeTableResponse timeTableResponseUp = new TimeTableResponse();
-    TimeTableResponse timeTableResponseDown = new TimeTableResponse();
-
-    timeTableResponseUp.setTimeTableName(TimeTableName.FIRST);
-    timeTableResponseDown.setTimeTableName(TimeTableName.SECOND);
-
-    Map<DayName, WorkDayResponse> newWeekUp = buildNewWeek();
-    Map<DayName, WorkDayResponse> newWeekDown = buildNewWeek();
+    Map<DayName, WorkDayResponse> newWeekUp = buildNewWeekMap();
+    Map<DayName, WorkDayResponse> newWeekDown = buildNewWeekMap();
 
     teacher.getTimeTables().forEach(lessonDay -> {
       if (lessonDay.getWorkDay().getTimeTable().getTimeTableName().equals(TimeTableName.FIRST)) {
@@ -67,10 +53,20 @@ public class TeacherServiceImpl implements TeacherService {
       }
     });
 
-    timeTableResponseUp.setWorkDays(new HashSet<>(newWeekUp.values()));
-    timeTableResponseDown.setWorkDays(new HashSet<>(newWeekDown.values()));
-    timeTableResponses.add(timeTableResponseUp);
-    timeTableResponses.add(timeTableResponseDown);
+    Set<TimeTableResponse> timeTableResponses = new HashSet<>();
+    timeTableResponses.add(
+        TimeTableResponse.builder()
+            .timeTableName(TimeTableName.FIRST)
+            .workDays(new HashSet<>(newWeekUp.values()))
+            .build()
+    );
+    timeTableResponses.add(
+        TimeTableResponse.builder()
+        .timeTableName(TimeTableName.SECOND)
+        .workDays(new HashSet<>(newWeekDown.values()))
+        .build()
+    );
+
     teacherResponse.setTimeTables(timeTableResponses);
     return teacherResponse;
   }
@@ -80,36 +76,18 @@ public class TeacherServiceImpl implements TeacherService {
         .add(lessonDayMapper.lessonDayToLessonDayResponse(lessonDay));
   }
 
-  //TODO:remove
-  private LessonDayResponse buildLessonDayResponse(LessonDay lessonDay) {
-    LessonDayResponse lessonDayResponse = new LessonDayResponse();
-    lessonDayResponse.setLessonTime(lessonDay.getLessonTime());
-    lessonDayResponse.setLesson(lessonDay.getLesson());
-    lessonDayResponse.setLessonPlace(lessonDay.getLessonPlace());
-    lessonDayResponse.setTeacherName(lessonDay.getTeacher().getUserName());
-    lessonDayResponse.setTeacherSurname(lessonDay.getTeacher().getUserSurname());
-
-    return lessonDayResponse;
-  }
-
-  private Map<DayName, WorkDayResponse> buildNewWeek() {
+  private Map<DayName, WorkDayResponse> buildNewWeekMap() {
     Map<DayName, WorkDayResponse> workDayResponses = new HashMap<>();
-    workDayResponses.put(DayName.MONDAY, buildWorkDay(DayName.MONDAY));
-    workDayResponses.put(DayName.TUESDAY, buildWorkDay(DayName.TUESDAY));
-    workDayResponses.put(DayName.WEDNESDAY, buildWorkDay(DayName.WEDNESDAY));
-    workDayResponses.put(DayName.THURSDAY, buildWorkDay(DayName.THURSDAY));
-    workDayResponses.put(DayName.FRIDAY, buildWorkDay(DayName.FRIDAY));
-    workDayResponses.put(DayName.SATURDAY, buildWorkDay(DayName.SATURDAY));
+    Constants.WEEK.forEach(dayName -> workDayResponses.put(dayName, buildWorkDay(dayName)));
 
     return workDayResponses;
   }
 
   private WorkDayResponse buildWorkDay(DayName dayName) {
-    WorkDayResponse workDayResponse = new WorkDayResponse();
-    workDayResponse.setDayName(dayName);
-    workDayResponse.setLessons(new HashSet<>());
-
-    return workDayResponse;
+    return WorkDayResponse.builder()
+        .dayName(dayName)
+        .lessons(new HashSet<>())
+        .build();
   }
 
 }

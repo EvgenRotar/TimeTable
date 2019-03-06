@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.evgen.timetable.builder.TimeTableBuilder;
+import com.evgen.timetable.Constants;
 import com.evgen.timetable.mapper.GroupMapper;
 import com.evgen.timetable.model.dto.group.GroupFullResponse;
 import com.evgen.timetable.model.dto.group.GroupResponse;
@@ -13,7 +13,11 @@ import com.evgen.timetable.model.dto.group.GroupSaveRequest;
 import com.evgen.timetable.model.dto.group.GroupWithStudentsResponse;
 import com.evgen.timetable.model.dto.group.GroupWithTimeTableResponse;
 import com.evgen.timetable.model.entity.Group;
+import com.evgen.timetable.model.entity.TimeTable;
+import com.evgen.timetable.model.entity.WorkDay;
 import com.evgen.timetable.repository.GroupRepository;
+import com.evgen.timetable.repository.TimeTableRepository;
+import com.evgen.timetable.repository.WorkDayRepository;
 import com.evgen.timetable.service.api.GroupService;
 import com.evgen.timetable.util.OptionalDaoUtil;
 
@@ -26,8 +30,9 @@ public class GroupServiceImpl implements GroupService {
 
   private final GroupRepository groupRepository;
   private final GroupMapper groupMapper;
-  private final TimeTableBuilder timeTableBuilder;
   private final OptionalDaoUtil optionalDaoUtil;
+  private final TimeTableRepository timeTableRepository;
+  private final WorkDayRepository workDayRepository;
 
   @Override
   @Transactional(readOnly = true)
@@ -59,7 +64,7 @@ public class GroupServiceImpl implements GroupService {
     Group group = new Group();
     groupMapper.mapGroupFromGroupSaveRequest(groupSaveRequest, group);
     group = groupRepository.save(group);
-    timeTableBuilder.createEmptyTimeTables(group);
+    createEmptyTimeTables(group);
 
     return groupMapper.groupToGroupResponse(group);
   }
@@ -74,6 +79,23 @@ public class GroupServiceImpl implements GroupService {
   @Override
   public void deleteGroup(Long groupId) {
     groupRepository.delete(optionalDaoUtil.getGroupByIdOrThrowException(groupId));
+  }
+
+  private void createEmptyTimeTables(Group group) {
+    Constants.TIMETABLES.forEach(timeTableName -> {
+      TimeTable timeTable = timeTableRepository.save(
+          TimeTable.builder()
+              .timeTableName(timeTableName)
+              .group(group)
+              .build()
+      );
+      Constants.WEEK.forEach(dayName -> workDayRepository.save(
+          WorkDay.builder()
+              .timeTable(timeTable)
+              .dayName(dayName)
+              .build())
+      );
+    });
   }
 
 }
