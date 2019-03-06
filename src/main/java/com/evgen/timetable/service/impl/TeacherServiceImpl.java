@@ -10,16 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.evgen.timetable.mapper.LessonDayMapper;
 import com.evgen.timetable.mapper.UserMapper;
-import com.evgen.timetable.model.entity.LessonDay;
 import com.evgen.timetable.model.dto.lesson.LessonDayResponse;
-import com.evgen.timetable.model.entity.Teacher;
 import com.evgen.timetable.model.dto.teacher.TeacherResponse;
-import com.evgen.timetable.model.name.TimeTableName;
 import com.evgen.timetable.model.dto.timeTable.TimeTableResponse;
-import com.evgen.timetable.model.name.DayName;
 import com.evgen.timetable.model.dto.workDay.WorkDayResponse;
-import com.evgen.timetable.repository.TeacherRepository;
+import com.evgen.timetable.model.entity.LessonDay;
+import com.evgen.timetable.model.entity.Teacher;
+import com.evgen.timetable.model.name.DayName;
+import com.evgen.timetable.model.name.TimeTableName;
 import com.evgen.timetable.service.api.TeacherService;
+import com.evgen.timetable.util.OptionalDaoUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -28,21 +28,14 @@ import lombok.AllArgsConstructor;
 @Transactional
 public class TeacherServiceImpl implements TeacherService {
 
-  private final TeacherRepository teacherRepository;
   private final UserMapper userMapper;
   private final LessonDayMapper lessonDayMapper;
-
-  private Teacher getTeacherByIdOrThrowException(Long id) {
-    return teacherRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("teacher not found"));
-  }
+  private final OptionalDaoUtil optionalDaoUtil;
 
   @Override
   @Transactional(readOnly = true)
   public TeacherResponse getTeacherById(Long id) {
-    Teacher teacher = getTeacherByIdOrThrowException(id);
-
-    return mapTeacherResponse(teacher);
+    return mapTeacherResponse(optionalDaoUtil.getTeacherByIdOrThrowException(id));
   }
 
   //Todo: clean-up
@@ -83,7 +76,8 @@ public class TeacherServiceImpl implements TeacherService {
   }
 
   private void buildWorkDayResponses(Map<DayName, WorkDayResponse> newWeek, LessonDay lessonDay) {
-    newWeek.get(lessonDay.getWorkDay().getDayName()).getLessons().add(lessonDayMapper.lessonDayToLessonDayResponse(lessonDay));
+    newWeek.get(lessonDay.getWorkDay().getDayName()).getLessons()
+        .add(lessonDayMapper.lessonDayToLessonDayResponse(lessonDay));
   }
 
   //TODO:remove

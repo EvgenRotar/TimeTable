@@ -15,14 +15,18 @@ import javax.persistence.Table;
 
 import com.evgen.timetable.model.name.TimeTableName;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @Entity
+@Builder
 @Table(name = "TIME_TABLE")
 public class TimeTable extends BaseEntity {
 

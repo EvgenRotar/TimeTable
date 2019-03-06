@@ -15,14 +15,18 @@ import javax.persistence.Table;
 
 import com.evgen.timetable.model.name.DayName;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @Entity
+@Builder
 @Table(name = "WORK_DAY")
 public class WorkDay extends BaseEntity {
 

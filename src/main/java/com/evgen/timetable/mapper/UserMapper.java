@@ -7,15 +7,15 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import com.evgen.timetable.model.entity.Student;
 import com.evgen.timetable.model.dto.student.StudentRegistrationRequest;
 import com.evgen.timetable.model.dto.student.StudentResponse;
-import com.evgen.timetable.model.entity.Teacher;
 import com.evgen.timetable.model.dto.teacher.TeacherRegistrationRequest;
 import com.evgen.timetable.model.dto.teacher.TeacherResponse;
-import com.evgen.timetable.model.entity.User;
 import com.evgen.timetable.model.dto.user.UserResponse;
 import com.evgen.timetable.model.dto.user.UserUpdateRequest;
+import com.evgen.timetable.model.entity.Student;
+import com.evgen.timetable.model.entity.Teacher;
+import com.evgen.timetable.model.entity.User;
 
 @Mapper(componentModel = "spring", uses = {UserRoleMapper.class, TimeTableMapper.class})
 public interface UserMapper {

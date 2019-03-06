@@ -4,13 +4,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.evgen.timetable.mapper.UserMapper;
-import com.evgen.timetable.model.entity.Group;
-import com.evgen.timetable.model.entity.Student;
 import com.evgen.timetable.model.dto.student.StudentResponse;
 import com.evgen.timetable.model.dto.student.StudentUpdateRequest;
-import com.evgen.timetable.repository.GroupRepository;
+import com.evgen.timetable.model.entity.Group;
+import com.evgen.timetable.model.entity.Student;
 import com.evgen.timetable.repository.StudentRepository;
 import com.evgen.timetable.service.api.StudentService;
+import com.evgen.timetable.util.OptionalDaoUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -20,29 +20,19 @@ import lombok.AllArgsConstructor;
 public class StudentServiceImpl implements StudentService {
 
   private final StudentRepository studentRepository;
-  private final GroupRepository groupRepository;
   private final UserMapper userMapper;
-
-  private Student getStudentByIdOrThrowException(Long id) {
-    return studentRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("student not found"));
-  }
-
-  private Group getGroupOrThrowException(String groupName) throws RuntimeException {
-    return groupRepository.findByGroupName(groupName)
-        .orElseThrow(() -> new RuntimeException(String.format("group with name %s not found", groupName)));
-  }
+  private final OptionalDaoUtil optionalDaoUtil;
 
   @Override
   @Transactional(readOnly = true)
   public StudentResponse getStudentById(Long id) {
-    return userMapper.studentToStudentResponse(getStudentByIdOrThrowException(id));
+    return userMapper.studentToStudentResponse(optionalDaoUtil.getStudentByIdOrThrowException(id));
   }
 
   @Override
   public void updateGroupStudentById(Long id, StudentUpdateRequest studentUpdateRequest) {
-    Group group = getGroupOrThrowException(studentUpdateRequest.getGroupName());
-    Student student = getStudentByIdOrThrowException(id);
+    Group group = optionalDaoUtil.getGroupOrThrowException(studentUpdateRequest.getGroupName());
+    Student student = optionalDaoUtil.getStudentByIdOrThrowException(id);
     student.setGroup(group);
     studentRepository.save(student);
   }

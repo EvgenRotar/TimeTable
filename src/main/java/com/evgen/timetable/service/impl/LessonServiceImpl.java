@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.evgen.timetable.model.entity.Lesson;
 import com.evgen.timetable.model.dto.lesson.LessonRequest;
+import com.evgen.timetable.model.entity.Lesson;
 import com.evgen.timetable.repository.LessonRepository;
 import com.evgen.timetable.service.api.LessonService;
+import com.evgen.timetable.util.OptionalDaoUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -18,11 +19,7 @@ import lombok.AllArgsConstructor;
 public class LessonServiceImpl implements LessonService {
 
   private final LessonRepository lessonRepository;
-
-  private Lesson getLessonByIdOrThrowException(Long id) {
-    return lessonRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException(String.format("lesson with id %d not found", id)));
-  }
+  private final OptionalDaoUtil optionalDaoUtil;
 
   @Override
   @Transactional(readOnly = true)
@@ -33,7 +30,7 @@ public class LessonServiceImpl implements LessonService {
   @Override
   @Transactional(readOnly = true)
   public Lesson getLessonById(Long id) {
-    return getLessonByIdOrThrowException(id);
+    return optionalDaoUtil.getLessonByIdOrThrowException(id);
   }
 
   @Override
@@ -43,12 +40,12 @@ public class LessonServiceImpl implements LessonService {
 
   @Override
   public void deleteLessonById(Long id) {
-    lessonRepository.delete(getLessonByIdOrThrowException(id));
+    lessonRepository.delete(optionalDaoUtil.getLessonByIdOrThrowException(id));
   }
 
   @Override
   public void updateLessonById(Long id, LessonRequest lessonRequest) {
-    Lesson lesson = getLessonByIdOrThrowException(id);
+    Lesson lesson = optionalDaoUtil.getLessonByIdOrThrowException(id);
     lesson.setLessonName(lessonRequest.getLessonName());
     lessonRepository.save(lesson);
   }

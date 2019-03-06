@@ -14,7 +14,7 @@ import com.evgen.timetable.model.dto.group.GroupSaveRequest;
 import com.evgen.timetable.model.dto.group.GroupWithStudentsResponse;
 import com.evgen.timetable.model.dto.group.GroupWithTimeTableResponse;
 
-@Mapper(componentModel = "spring", uses = {UserResponseMapper.class, TimeTableMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, TimeTableMapper.class})
 public interface GroupMapper {
 
   @IterableMapping(elementTargetType = GroupResponse.class)
