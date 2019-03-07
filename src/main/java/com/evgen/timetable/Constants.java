@@ -12,6 +12,10 @@ public class Constants {
 
   public static final String PASSWORD_PATTERN = "^[a-zA-Z0-9]{8,30}$";
 
+  public static final String AUTH_TOKEN_HEADER_NAME = "X-AUTH-TOKEN-VALUE";
+
+  public static final String AUTH_TYPE_HEADER_NAME = "X-AUTH-TOKEN-TYPE";
+
   public static final List<DayName> WEEK = Arrays
       .asList(DayName.MONDAY, DayName.TUESDAY, DayName.WEDNESDAY, DayName.THURSDAY, DayName.FRIDAY, DayName.SATURDAY);
 

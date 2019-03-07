@@ -8,24 +8,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.evgen.timetable.exception.NotFoundException;
 import com.evgen.timetable.model.dto.group.GroupSaveRequest;
-import com.evgen.timetable.model.entity.Role;
-import com.evgen.timetable.model.name.RoleName;
 import com.evgen.timetable.model.dto.student.StudentRegistrationRequest;
 import com.evgen.timetable.model.dto.student.StudentResponse;
-import com.evgen.timetable.model.entity.Teacher;
 import com.evgen.timetable.model.dto.teacher.TeacherRegistrationRequest;
 import com.evgen.timetable.model.dto.teacher.TeacherResponse;
 import com.evgen.timetable.model.entity.Lesson;
 import com.evgen.timetable.model.entity.LessonDay;
+import com.evgen.timetable.model.entity.Role;
+import com.evgen.timetable.model.entity.Teacher;
 import com.evgen.timetable.model.entity.WorkDay;
+import com.evgen.timetable.model.name.RoleName;
 import com.evgen.timetable.repository.LessonDayRepository;
 import com.evgen.timetable.repository.LessonRepository;
 import com.evgen.timetable.repository.RoleRepository;
-import com.evgen.timetable.repository.TeacherRepository;
-import com.evgen.timetable.repository.WorkDayRepository;
 import com.evgen.timetable.service.api.GroupService;
+import com.evgen.timetable.util.OptionalDaoUtil;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,10 +34,9 @@ import lombok.extern.slf4j.Slf4j;
 public class TestDataInitializer {
 
   private final RoleRepository roleRepository;
-  private final WorkDayRepository workDayRepository;
   private final LessonRepository lessonRepository;
-  private final TeacherRepository teacherRepository;
   private final LessonDayRepository lessonDayRepository;
+  private final OptionalDaoUtil optionalDaoUtil;
   private final RestTemplate restTemplate = new RestTemplate();
   private final GroupService groupService;
 
@@ -55,28 +52,30 @@ public class TestDataInitializer {
   }
 
   private void initTeacher() {
-    TeacherRegistrationRequest teacherRegistrationRequest = TeacherRegistrationRequest.builder()
-        .login("maryaivana")
-        .password("14881488")
-        .userName("Marya")
-        .userSurname("Ivanavna")
-        .build();
-    TeacherRegistrationRequest teacherRegistrationRequest1 = TeacherRegistrationRequest.builder()
-        .login("zinaidasemena")
-        .password("14881488")
-        .userName("Zinaida")
-        .userSurname("Semenaana")
-        .build();
-    TeacherRegistrationRequest teacherRegistrationRequest2 = TeacherRegistrationRequest.builder()
-        .login("stanislavder")
-        .password("14881488")
-        .userName("Stanislav")
-        .userSurname("Derechen")
-        .build();
-
-    registrationTeacher(teacherRegistrationRequest);
-    registrationTeacher(teacherRegistrationRequest1);
-    registrationTeacher(teacherRegistrationRequest2);
+    registrationTeacher(
+        TeacherRegistrationRequest.builder()
+            .login("maryaivana")
+            .password("14881488")
+            .userName("Marya")
+            .userSurname("Ivanavna")
+            .build()
+    );
+    registrationTeacher(
+        TeacherRegistrationRequest.builder()
+            .login("zinaidasemena")
+            .password("14881488")
+            .userName("Zinaida")
+            .userSurname("Semenaana")
+            .build()
+    );
+    registrationTeacher(
+        TeacherRegistrationRequest.builder()
+            .login("stanislavder")
+            .password("14881488")
+            .userName("Stanislav")
+            .userSurname("Derechen")
+            .build()
+    );
   }
 
   private void initLessons() {
@@ -91,64 +90,43 @@ public class TestDataInitializer {
     lessonRepository.save(lesson);
   }
 
-  private void initComplete() {
-    log.info("==========================");
-    log.info("INIT TEST DATA - COMPLETE");
-    log.info("==========================");
-  }
-
-  private Lesson getLessonByIdOrThrowException(Long id) throws NotFoundException {
-    return lessonRepository.findById(id)
-        .orElseThrow(() -> new NotFoundException(String.format("lesson with id %d not found", id)));
-  }
-
-  private Teacher getTeacherByIdOrThrowException(Long id) throws NotFoundException {
-    return teacherRepository.findById(id)
-        .orElseThrow(() -> new NotFoundException(String.format("lesson with id %d not found", id)));
-  }
-
-  private WorkDay getWorkDayByIdOrThrowException(Long id) throws NotFoundException {
-    return workDayRepository.findById(id)
-        .orElseThrow(() -> new NotFoundException(String.format("day with id %d not found", id)));
-  }
-
   private void initTimeTable() {
-    Teacher teacher = getTeacherByIdOrThrowException(6L);
-    WorkDay workDay = getWorkDayByIdOrThrowException(1L);
-    buildAndSaveLesson(getLessonByIdOrThrowException(1L), teacher, "400/2", "11:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(2L), teacher, "430/2", "13:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(3L), teacher, "440/2", "15:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(4L), teacher, "410/2", "17:00", workDay);
+    Teacher teacher = optionalDaoUtil.getTeacherByIdOrThrowException(6L);
+    WorkDay workDay = optionalDaoUtil.getWorkDayByIdOrThrowException(1L);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(1L), teacher, "400/2", "11:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(2L), teacher, "430/2", "13:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(3L), teacher, "440/2", "15:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(4L), teacher, "410/2", "17:00", workDay);
 
-    workDay = getWorkDayByIdOrThrowException(2L);
-    buildAndSaveLesson(getLessonByIdOrThrowException(4L), teacher, "200/2", "11:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(3L), teacher, "230/2", "13:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(2L), teacher, "240/2", "15:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(1L), teacher, "210/2", "17:00", workDay);
+    workDay = optionalDaoUtil.getWorkDayByIdOrThrowException(2L);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(4L), teacher, "200/2", "11:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(3L), teacher, "230/2", "13:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(2L), teacher, "240/2", "15:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(1L), teacher, "210/2", "17:00", workDay);
 
-    workDay = getWorkDayByIdOrThrowException(3L);
-    buildAndSaveLesson(getLessonByIdOrThrowException(3L), teacher, "100/2", "11:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(4L), teacher, "130/2", "13:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(1L), teacher, "540/2", "15:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(2L), teacher, "510/2", "17:00", workDay);
+    workDay = optionalDaoUtil.getWorkDayByIdOrThrowException(3L);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(3L), teacher, "100/2", "11:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(4L), teacher, "130/2", "13:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(1L), teacher, "540/2", "15:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(2L), teacher, "510/2", "17:00", workDay);
 
-    workDay = getWorkDayByIdOrThrowException(4L);
-    buildAndSaveLesson(getLessonByIdOrThrowException(3L), teacher, "100/2", "11:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(4L), teacher, "130/2", "13:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(1L), teacher, "540/2", "15:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(2L), teacher, "510/2", "17:00", workDay);
+    workDay = optionalDaoUtil.getWorkDayByIdOrThrowException(4L);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(3L), teacher, "100/2", "11:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(4L), teacher, "130/2", "13:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(1L), teacher, "540/2", "15:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(2L), teacher, "510/2", "17:00", workDay);
 
-    workDay = getWorkDayByIdOrThrowException(5L);
-    buildAndSaveLesson(getLessonByIdOrThrowException(3L), teacher, "100/2", "11:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(4L), teacher, "130/2", "13:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(1L), teacher, "540/2", "15:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(2L), teacher, "510/2", "17:00", workDay);
+    workDay = optionalDaoUtil.getWorkDayByIdOrThrowException(5L);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(3L), teacher, "100/2", "11:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(4L), teacher, "130/2", "13:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(1L), teacher, "540/2", "15:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(2L), teacher, "510/2", "17:00", workDay);
 
-    workDay = getWorkDayByIdOrThrowException(6L);
-    buildAndSaveLesson(getLessonByIdOrThrowException(3L), teacher, "100/2", "11:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(4L), teacher, "130/2", "13:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(1L), teacher, "540/2", "15:00", workDay);
-    buildAndSaveLesson(getLessonByIdOrThrowException(2L), teacher, "510/2", "17:00", workDay);
+    workDay = optionalDaoUtil.getWorkDayByIdOrThrowException(6L);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(3L), teacher, "100/2", "11:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(4L), teacher, "130/2", "13:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(1L), teacher, "540/2", "15:00", workDay);
+    buildAndSaveLesson(optionalDaoUtil.getLessonByIdOrThrowException(2L), teacher, "510/2", "17:00", workDay);
   }
 
   private void buildAndSaveLesson(Lesson lesson, Teacher teacher, String place, String time, WorkDay workDay) {
@@ -178,64 +156,62 @@ public class TestDataInitializer {
   }
 
   private void initStudents() {
-    StudentRegistrationRequest studentRegistrationRequest = StudentRegistrationRequest.builder()
-        .login("evgenrotar")
-        .password("14881488")
-        .userName("Yauheni")
-        .userSurname("Rotar")
-        .groupName("МС-2")
-        .build();
-    StudentRegistrationRequest studentRegistrationRequest1 = StudentRegistrationRequest.builder()
-        .login("vadimparaf")
-        .password("14881488")
-        .userName("Vadim")
-        .userSurname("Paraf")
-        .groupName("ИИ-14")
-        .build();
-    StudentRegistrationRequest studentRegistrationRequest2 = StudentRegistrationRequest.builder()
-        .login("zhmishenkov")
-        .password("14881488")
-        .userName("Valera")
-        .userSurname("Zmih")
-        .groupName("МС-2")
-        .build();
-    StudentRegistrationRequest studentRegistrationRequest3 = StudentRegistrationRequest.builder()
-        .login("gladvalakas")
-        .password("14881488")
-        .userName("Glad")
-        .userSurname("Valakas")
-        .groupName("МС-2")
-        .build();
-    StudentRegistrationRequest studentRegistrationRequest4 = StudentRegistrationRequest.builder()
-        .login("tankist")
-        .password("14881488")
-        .userName("Staryi")
-        .userSurname("Tankist")
-        .groupName("ПЭ-17")
-        .build();
-
-    registrationStudent(studentRegistrationRequest);
-    registrationStudent(studentRegistrationRequest1);
-    registrationStudent(studentRegistrationRequest2);
-    registrationStudent(studentRegistrationRequest3);
-    registrationStudent(studentRegistrationRequest4);
-
+    registrationStudent(
+        StudentRegistrationRequest.builder()
+            .login("evgenrotar")
+            .password("14881488")
+            .userName("Yauheni")
+            .userSurname("Rotar")
+            .groupName("МС-2")
+            .build()
+    );
+    registrationStudent(
+        StudentRegistrationRequest.builder()
+            .login("vadimparaf")
+            .password("14881488")
+            .userName("Vadim")
+            .userSurname("Paraf")
+            .groupName("ИИ-14")
+            .build()
+    );
+    registrationStudent(
+        StudentRegistrationRequest.builder()
+            .login("zhmishenkov")
+            .password("14881488")
+            .userName("Valera")
+            .userSurname("Zmih")
+            .groupName("МС-2")
+            .build()
+    );
+    registrationStudent(
+        StudentRegistrationRequest.builder()
+            .login("gladvalakas")
+            .password("14881488")
+            .userName("Glad")
+            .userSurname("Valakas")
+            .groupName("МС-2")
+            .build()
+    );
+    registrationStudent(
+        StudentRegistrationRequest.builder()
+            .login("tankist")
+            .password("14881488")
+            .userName("Staryi")
+            .userSurname("Tankist")
+            .groupName("ПЭ-17")
+            .build()
+    );
   }
 
   private void initGroups() {
-    GroupSaveRequest group = new GroupSaveRequest("МС-2");
-    GroupSaveRequest group1 = new GroupSaveRequest("Э-52");
-    GroupSaveRequest group2 = new GroupSaveRequest("ИИ-14");
-    GroupSaveRequest group3 = new GroupSaveRequest("ПЭ-17");
-
-    groupService.addGroup(group);
-    groupService.addGroup(group1);
-    groupService.addGroup(group2);
-    groupService.addGroup(group3);
+    groupService.addGroup(new GroupSaveRequest("МС-2"));
+    groupService.addGroup(new GroupSaveRequest("Э-52"));
+    groupService.addGroup(new GroupSaveRequest("ИИ-14"));
+    groupService.addGroup(new GroupSaveRequest("ПЭ-17"));
   }
 
-  private Role saveRoleIfNotExists(RoleName roleName) {
-    return roleRepository.findByRoleName(roleName)
+  private void saveRoleIfNotExists(RoleName roleName) {
+    roleRepository.findByRoleName(roleName)
         .orElseGet(() -> {
           Role roleToSave = new Role();
           roleToSave.setRoleName(roleName);
@@ -246,6 +222,12 @@ public class TestDataInitializer {
   private void initStudentAndAdminRoles() {
     saveRoleIfNotExists(RoleName.STUDENT);
     saveRoleIfNotExists(RoleName.ADMIN);
+  }
+
+  private void initComplete() {
+    log.info("==========================");
+    log.info("INIT TEST DATA - COMPLETE");
+    log.info("==========================");
   }
 
 }
