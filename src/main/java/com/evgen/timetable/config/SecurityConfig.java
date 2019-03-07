@@ -74,13 +74,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 //user and admin
-                .antMatchers(HttpMethod.GET,  "/api/groups/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
-                .antMatchers(HttpMethod.GET,  "/api/lessons/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
-                .antMatchers(HttpMethod.GET,  "/api/lessonDays/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
-                .antMatchers(HttpMethod.GET,  "/api/students/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
-                .antMatchers(HttpMethod.GET,  "/api/teachers/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
-                .antMatchers(HttpMethod.GET,  "/api/timeTables/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
-                .antMatchers(HttpMethod.GET,  "/api/users/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/api/groups/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/api/lessons/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/api/lessonDays/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/api/students/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/api/teachers/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/api/timeTables/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/api/users/**").hasAnyRole(RoleName.STUDENT.name(), RoleName.ADMIN.name())
                 //admin
                 .antMatchers("/api/groups/**").hasRole(RoleName.ADMIN.name())
                 .antMatchers("/api/lessons/**").hasRole(RoleName.ADMIN.name())
