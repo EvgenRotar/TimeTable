@@ -5,6 +5,7 @@
   <groupId>com.evgen</groupId>
   <artifactId>timetable</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
   <name>timetable</name>
   <description>TimeTable for university</description>
   <url>https://github.com/</url>
