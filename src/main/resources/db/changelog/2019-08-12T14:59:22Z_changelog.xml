@@ -1,0 +1,802 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-1">
+    <createTable tableName="LESSON">
+      <column autoIncrement="true" name="id" type="BIGINT">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="LESSON_NAME" type="VARCHAR(32)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-2">
+    <createTable tableName="LESSON_DAY">
+      <column autoIncrement="true" name="id" type="BIGINT">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="LESSON_PLACE" type="VARCHAR(32)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="LESSON_TIME" type="VARCHAR(32)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="LESSON_ID" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="TEACHER_ID" type="BIGINT"/>
+      <column name="WORK_DAY_ID" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-3">
+    <createTable tableName="ROLE">
+      <column autoIncrement="true" name="id" type="BIGINT">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="ROLE_NAME" type="VARCHAR(32)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-4">
+    <createTable tableName="STUDENT_GROUP">
+      <column autoIncrement="true" name="id" type="BIGINT">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="GROUP_NAME" type="VARCHAR(32)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-5">
+    <createTable tableName="TIME_TABLE">
+      <column autoIncrement="true" name="id" type="BIGINT">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="TIME_TABLE_NAME" type="VARCHAR(32)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="GROUP_ID" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-6">
+    <createTable tableName="USER">
+      <column name="DTYPE" type="VARCHAR(31)">
+        <constraints nullable="false"/>
+      </column>
+      <column autoIncrement="true" name="id" type="BIGINT">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="USER_LOGIN" type="VARCHAR(32)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="USER_PASSWORD" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="USER_NAME" type="VARCHAR(50)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="USER_SURNAME" type="VARCHAR(50)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="GROUP_ID" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-7">
+    <createTable tableName="USER_ROLE">
+      <column autoIncrement="true" name="id" type="BIGINT">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="ROLE_ID" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="USER_ID" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-8">
+    <createTable tableName="WORK_DAY">
+      <column autoIncrement="true" name="id" type="BIGINT">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="DAY_NAME" type="VARCHAR(32)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="TIME_TABLE_ID" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-9">
+    <addUniqueConstraint columnNames="LESSON_NAME" constraintName="UK_1t8tgon71m0rtol5c5tovqvh5" tableName="LESSON"/>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-10">
+    <addUniqueConstraint columnNames="GROUP_NAME" constraintName="UK_hcvoe0m9tfp49q4au3dl2ujpo" tableName="STUDENT_GROUP"/>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-11">
+    <addUniqueConstraint columnNames="USER_LOGIN" constraintName="UK_pqi5acc6k4to4xj6rx68d6yvs" tableName="USER"/>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-12">
+    <createIndex indexName="FK3yeb5bof9n8aa5lc5p5amhgin" tableName="LESSON_DAY">
+      <column name="TEACHER_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-13">
+    <createIndex indexName="FKa8x5mvctia7u43u2mm3hyy5bm" tableName="USER_ROLE">
+      <column name="USER_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-14">
+    <createIndex indexName="FKd90riu0a9i8tqy4vraon91p33" tableName="LESSON_DAY">
+      <column name="WORK_DAY_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-15">
+    <createIndex indexName="FKe1tsxcdbdw54j9ii4qosmxlcv" tableName="USER">
+      <column name="GROUP_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-16">
+    <createIndex indexName="FKkbgjsw6smbju636ijnrmx6768" tableName="WORK_DAY">
+      <column name="TIME_TABLE_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-17">
+    <createIndex indexName="FKn1rn9qodd3u4le8uf3kl33qe3" tableName="USER_ROLE">
+      <column name="ROLE_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-18">
+    <createIndex indexName="FKpasyoc2gk9jefjx2mwqdn4eb5" tableName="LESSON_DAY">
+      <column name="LESSON_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621929364-19">
+    <createIndex indexName="FKrka345d4luspama96b62hsaks" tableName="TIME_TABLE">
+      <column name="GROUP_ID"/>
+    </createIndex>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621943810-1">
+    <insert tableName="LESSON">
+      <column name="id" valueNumeric="4"/>
+      <column name="LESSON_NAME" value="English"/>
+    </insert>
+    <insert tableName="LESSON">
+      <column name="id" valueNumeric="2"/>
+      <column name="LESSON_NAME" value="Literature"/>
+    </insert>
+    <insert tableName="LESSON">
+      <column name="id" valueNumeric="1"/>
+      <column name="LESSON_NAME" value="Math"/>
+    </insert>
+    <insert tableName="LESSON">
+      <column name="id" valueNumeric="3"/>
+      <column name="LESSON_NAME" value="Philosophy"/>
+    </insert>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621943810-2">
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="1"/>
+      <column name="LESSON_PLACE" value="400/2"/>
+      <column name="LESSON_TIME" value="11:00"/>
+      <column name="LESSON_ID" valueNumeric="1"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="2"/>
+      <column name="LESSON_PLACE" value="430/2"/>
+      <column name="LESSON_TIME" value="13:00"/>
+      <column name="LESSON_ID" valueNumeric="2"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="3"/>
+      <column name="LESSON_PLACE" value="440/2"/>
+      <column name="LESSON_TIME" value="15:00"/>
+      <column name="LESSON_ID" valueNumeric="3"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="4"/>
+      <column name="LESSON_PLACE" value="410/2"/>
+      <column name="LESSON_TIME" value="17:00"/>
+      <column name="LESSON_ID" valueNumeric="4"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="5"/>
+      <column name="LESSON_PLACE" value="200/2"/>
+      <column name="LESSON_TIME" value="11:00"/>
+      <column name="LESSON_ID" valueNumeric="4"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="6"/>
+      <column name="LESSON_PLACE" value="230/2"/>
+      <column name="LESSON_TIME" value="13:00"/>
+      <column name="LESSON_ID" valueNumeric="3"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="7"/>
+      <column name="LESSON_PLACE" value="240/2"/>
+      <column name="LESSON_TIME" value="15:00"/>
+      <column name="LESSON_ID" valueNumeric="2"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="8"/>
+      <column name="LESSON_PLACE" value="210/2"/>
+      <column name="LESSON_TIME" value="17:00"/>
+      <column name="LESSON_ID" valueNumeric="1"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="9"/>
+      <column name="LESSON_PLACE" value="100/2"/>
+      <column name="LESSON_TIME" value="11:00"/>
+      <column name="LESSON_ID" valueNumeric="3"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="10"/>
+      <column name="LESSON_PLACE" value="130/2"/>
+      <column name="LESSON_TIME" value="13:00"/>
+      <column name="LESSON_ID" valueNumeric="4"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="11"/>
+      <column name="LESSON_PLACE" value="540/2"/>
+      <column name="LESSON_TIME" value="15:00"/>
+      <column name="LESSON_ID" valueNumeric="1"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="12"/>
+      <column name="LESSON_PLACE" value="510/2"/>
+      <column name="LESSON_TIME" value="17:00"/>
+      <column name="LESSON_ID" valueNumeric="2"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="13"/>
+      <column name="LESSON_PLACE" value="100/2"/>
+      <column name="LESSON_TIME" value="11:00"/>
+      <column name="LESSON_ID" valueNumeric="3"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="14"/>
+      <column name="LESSON_PLACE" value="130/2"/>
+      <column name="LESSON_TIME" value="13:00"/>
+      <column name="LESSON_ID" valueNumeric="4"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="15"/>
+      <column name="LESSON_PLACE" value="540/2"/>
+      <column name="LESSON_TIME" value="15:00"/>
+      <column name="LESSON_ID" valueNumeric="1"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="16"/>
+      <column name="LESSON_PLACE" value="510/2"/>
+      <column name="LESSON_TIME" value="17:00"/>
+      <column name="LESSON_ID" valueNumeric="2"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="17"/>
+      <column name="LESSON_PLACE" value="100/2"/>
+      <column name="LESSON_TIME" value="11:00"/>
+      <column name="LESSON_ID" valueNumeric="3"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="5"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="18"/>
+      <column name="LESSON_PLACE" value="130/2"/>
+      <column name="LESSON_TIME" value="13:00"/>
+      <column name="LESSON_ID" valueNumeric="4"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="5"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="19"/>
+      <column name="LESSON_PLACE" value="540/2"/>
+      <column name="LESSON_TIME" value="15:00"/>
+      <column name="LESSON_ID" valueNumeric="1"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="5"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="20"/>
+      <column name="LESSON_PLACE" value="510/2"/>
+      <column name="LESSON_TIME" value="17:00"/>
+      <column name="LESSON_ID" valueNumeric="2"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="5"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="21"/>
+      <column name="LESSON_PLACE" value="100/2"/>
+      <column name="LESSON_TIME" value="11:00"/>
+      <column name="LESSON_ID" valueNumeric="3"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="6"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="22"/>
+      <column name="LESSON_PLACE" value="130/2"/>
+      <column name="LESSON_TIME" value="13:00"/>
+      <column name="LESSON_ID" valueNumeric="4"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="6"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="23"/>
+      <column name="LESSON_PLACE" value="540/2"/>
+      <column name="LESSON_TIME" value="15:00"/>
+      <column name="LESSON_ID" valueNumeric="1"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="6"/>
+    </insert>
+    <insert tableName="LESSON_DAY">
+      <column name="id" valueNumeric="24"/>
+      <column name="LESSON_PLACE" value="510/2"/>
+      <column name="LESSON_TIME" value="17:00"/>
+      <column name="LESSON_ID" valueNumeric="2"/>
+      <column name="TEACHER_ID" valueNumeric="6"/>
+      <column name="WORK_DAY_ID" valueNumeric="6"/>
+    </insert>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621943810-3">
+    <insert tableName="ROLE">
+      <column name="id" valueNumeric="1"/>
+      <column name="ROLE_NAME" value="STUDENT"/>
+    </insert>
+    <insert tableName="ROLE">
+      <column name="id" valueNumeric="2"/>
+      <column name="ROLE_NAME" value="ADMIN"/>
+    </insert>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621943810-4">
+    <insert tableName="STUDENT_GROUP">
+      <column name="id" valueNumeric="3"/>
+      <column name="GROUP_NAME" value="ИИ-14"/>
+    </insert>
+    <insert tableName="STUDENT_GROUP">
+      <column name="id" valueNumeric="1"/>
+      <column name="GROUP_NAME" value="МС-2"/>
+    </insert>
+    <insert tableName="STUDENT_GROUP">
+      <column name="id" valueNumeric="4"/>
+      <column name="GROUP_NAME" value="ПЭ-17"/>
+    </insert>
+    <insert tableName="STUDENT_GROUP">
+      <column name="id" valueNumeric="2"/>
+      <column name="GROUP_NAME" value="Э-52"/>
+    </insert>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621943810-5">
+    <insert tableName="TIME_TABLE">
+      <column name="id" valueNumeric="1"/>
+      <column name="TIME_TABLE_NAME" value="FIRST"/>
+      <column name="GROUP_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="TIME_TABLE">
+      <column name="id" valueNumeric="2"/>
+      <column name="TIME_TABLE_NAME" value="SECOND"/>
+      <column name="GROUP_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="TIME_TABLE">
+      <column name="id" valueNumeric="3"/>
+      <column name="TIME_TABLE_NAME" value="FIRST"/>
+      <column name="GROUP_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="TIME_TABLE">
+      <column name="id" valueNumeric="4"/>
+      <column name="TIME_TABLE_NAME" value="SECOND"/>
+      <column name="GROUP_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="TIME_TABLE">
+      <column name="id" valueNumeric="5"/>
+      <column name="TIME_TABLE_NAME" value="FIRST"/>
+      <column name="GROUP_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="TIME_TABLE">
+      <column name="id" valueNumeric="6"/>
+      <column name="TIME_TABLE_NAME" value="SECOND"/>
+      <column name="GROUP_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="TIME_TABLE">
+      <column name="id" valueNumeric="7"/>
+      <column name="TIME_TABLE_NAME" value="FIRST"/>
+      <column name="GROUP_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="TIME_TABLE">
+      <column name="id" valueNumeric="8"/>
+      <column name="TIME_TABLE_NAME" value="SECOND"/>
+      <column name="GROUP_ID" valueNumeric="4"/>
+    </insert>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621943810-6">
+    <insert tableName="USER">
+      <column name="DTYPE" value="Student"/>
+      <column name="id" valueNumeric="1"/>
+      <column name="USER_LOGIN" value="evgenrotar"/>
+      <column name="USER_PASSWORD" value="$2a$11$eMgEv82NTfiRKbPQdoQTR.ooo25wlD8wFIBnI3VyFEc.r/vJ5JOP2"/>
+      <column name="USER_NAME" value="Yauheni"/>
+      <column name="USER_SURNAME" value="Rotar"/>
+      <column name="GROUP_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="USER">
+      <column name="DTYPE" value="Student"/>
+      <column name="id" valueNumeric="2"/>
+      <column name="USER_LOGIN" value="vadimparaf"/>
+      <column name="USER_PASSWORD" value="$2a$11$S5c3gRyiq2l19wEFTBcc9ugp6ADEZJqqAo5lR1ObhvO0Uztf2pNAO"/>
+      <column name="USER_NAME" value="Vadim"/>
+      <column name="USER_SURNAME" value="Paraf"/>
+      <column name="GROUP_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="USER">
+      <column name="DTYPE" value="Student"/>
+      <column name="id" valueNumeric="3"/>
+      <column name="USER_LOGIN" value="zhmishenkov"/>
+      <column name="USER_PASSWORD" value="$2a$11$O717/ImsVQFAbx.u3ksPpOx59.JrZbO3L9BjI2Cq3TdtRtCCtEs7u"/>
+      <column name="USER_NAME" value="Valera"/>
+      <column name="USER_SURNAME" value="Zmih"/>
+      <column name="GROUP_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="USER">
+      <column name="DTYPE" value="Student"/>
+      <column name="id" valueNumeric="4"/>
+      <column name="USER_LOGIN" value="gladvalakas"/>
+      <column name="USER_PASSWORD" value="$2a$11$g90DmTTBhQxeaiGq/v/o5upK5BwQf5nhMdu5Bj7fH0EcQuJoAWLXi"/>
+      <column name="USER_NAME" value="Glad"/>
+      <column name="USER_SURNAME" value="Valakas"/>
+      <column name="GROUP_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="USER">
+      <column name="DTYPE" value="Student"/>
+      <column name="id" valueNumeric="5"/>
+      <column name="USER_LOGIN" value="tankist"/>
+      <column name="USER_PASSWORD" value="$2a$11$uSnzQ.DhT4gxkrZr5IB75uicdWdCIPMist0B6/Bsu4FapCaDS4Xoa"/>
+      <column name="USER_NAME" value="Staryi"/>
+      <column name="USER_SURNAME" value="Tankist"/>
+      <column name="GROUP_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="USER">
+      <column name="DTYPE" value="Teacher"/>
+      <column name="id" valueNumeric="6"/>
+      <column name="USER_LOGIN" value="maryaivana"/>
+      <column name="USER_PASSWORD" value="$2a$11$pj3mvdcrH3fNXpvec5AmBOi7wPDYdUw7lzH9CGnUH4knxP4BS6X3O"/>
+      <column name="USER_NAME" value="Marya"/>
+      <column name="USER_SURNAME" value="Ivanavna"/>
+      <column name="GROUP_ID"/>
+    </insert>
+    <insert tableName="USER">
+      <column name="DTYPE" value="Teacher"/>
+      <column name="id" valueNumeric="7"/>
+      <column name="USER_LOGIN" value="zinaidasemena"/>
+      <column name="USER_PASSWORD" value="$2a$11$KbUz//ApEaC27jsp3VKEWOjJkg2tNJ4/lM4VFIRnPl6F8IxI2sjKG"/>
+      <column name="USER_NAME" value="Zinaida"/>
+      <column name="USER_SURNAME" value="Semenaana"/>
+      <column name="GROUP_ID"/>
+    </insert>
+    <insert tableName="USER">
+      <column name="DTYPE" value="Teacher"/>
+      <column name="id" valueNumeric="8"/>
+      <column name="USER_LOGIN" value="stanislavder"/>
+      <column name="USER_PASSWORD" value="$2a$11$bzpqvTytrktDH5HsVuuPJeTab/7Fkr2sig7B5AQs89tkG7Zwikj8q"/>
+      <column name="USER_NAME" value="Stanislav"/>
+      <column name="USER_SURNAME" value="Derechen"/>
+      <column name="GROUP_ID"/>
+    </insert>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621943810-7">
+    <insert tableName="USER_ROLE">
+      <column name="id" valueNumeric="1"/>
+      <column name="ROLE_ID" valueNumeric="1"/>
+      <column name="USER_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="USER_ROLE">
+      <column name="id" valueNumeric="2"/>
+      <column name="ROLE_ID" valueNumeric="1"/>
+      <column name="USER_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="USER_ROLE">
+      <column name="id" valueNumeric="3"/>
+      <column name="ROLE_ID" valueNumeric="1"/>
+      <column name="USER_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="USER_ROLE">
+      <column name="id" valueNumeric="4"/>
+      <column name="ROLE_ID" valueNumeric="1"/>
+      <column name="USER_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="USER_ROLE">
+      <column name="id" valueNumeric="5"/>
+      <column name="ROLE_ID" valueNumeric="1"/>
+      <column name="USER_ID" valueNumeric="5"/>
+    </insert>
+    <insert tableName="USER_ROLE">
+      <column name="id" valueNumeric="6"/>
+      <column name="ROLE_ID" valueNumeric="2"/>
+      <column name="USER_ID" valueNumeric="6"/>
+    </insert>
+    <insert tableName="USER_ROLE">
+      <column name="id" valueNumeric="7"/>
+      <column name="ROLE_ID" valueNumeric="2"/>
+      <column name="USER_ID" valueNumeric="7"/>
+    </insert>
+    <insert tableName="USER_ROLE">
+      <column name="id" valueNumeric="8"/>
+      <column name="ROLE_ID" valueNumeric="2"/>
+      <column name="USER_ID" valueNumeric="8"/>
+    </insert>
+  </changeSet>
+  <changeSet author="yauheni_rotar (generated)" id="1565621943810-8">
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="1"/>
+      <column name="DAY_NAME" value="MONDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="2"/>
+      <column name="DAY_NAME" value="TUESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="3"/>
+      <column name="DAY_NAME" value="WEDNESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="4"/>
+      <column name="DAY_NAME" value="THURSDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="5"/>
+      <column name="DAY_NAME" value="FRIDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="6"/>
+      <column name="DAY_NAME" value="SATURDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="1"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="7"/>
+      <column name="DAY_NAME" value="MONDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="8"/>
+      <column name="DAY_NAME" value="TUESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="9"/>
+      <column name="DAY_NAME" value="WEDNESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="10"/>
+      <column name="DAY_NAME" value="THURSDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="11"/>
+      <column name="DAY_NAME" value="FRIDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="12"/>
+      <column name="DAY_NAME" value="SATURDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="2"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="13"/>
+      <column name="DAY_NAME" value="MONDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="14"/>
+      <column name="DAY_NAME" value="TUESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="15"/>
+      <column name="DAY_NAME" value="WEDNESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="16"/>
+      <column name="DAY_NAME" value="THURSDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="17"/>
+      <column name="DAY_NAME" value="FRIDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="18"/>
+      <column name="DAY_NAME" value="SATURDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="3"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="19"/>
+      <column name="DAY_NAME" value="MONDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="20"/>
+      <column name="DAY_NAME" value="TUESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="21"/>
+      <column name="DAY_NAME" value="WEDNESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="22"/>
+      <column name="DAY_NAME" value="THURSDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="23"/>
+      <column name="DAY_NAME" value="FRIDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="24"/>
+      <column name="DAY_NAME" value="SATURDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="4"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="25"/>
+      <column name="DAY_NAME" value="MONDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="5"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="26"/>
+      <column name="DAY_NAME" value="TUESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="5"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="27"/>
+      <column name="DAY_NAME" value="WEDNESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="5"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="28"/>
+      <column name="DAY_NAME" value="THURSDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="5"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="29"/>
+      <column name="DAY_NAME" value="FRIDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="5"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="30"/>
+      <column name="DAY_NAME" value="SATURDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="5"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="31"/>
+      <column name="DAY_NAME" value="MONDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="6"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="32"/>
+      <column name="DAY_NAME" value="TUESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="6"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="33"/>
+      <column name="DAY_NAME" value="WEDNESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="6"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="34"/>
+      <column name="DAY_NAME" value="THURSDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="6"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="35"/>
+      <column name="DAY_NAME" value="FRIDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="6"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="36"/>
+      <column name="DAY_NAME" value="SATURDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="6"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="37"/>
+      <column name="DAY_NAME" value="MONDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="7"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="38"/>
+      <column name="DAY_NAME" value="TUESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="7"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="39"/>
+      <column name="DAY_NAME" value="WEDNESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="7"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="40"/>
+      <column name="DAY_NAME" value="THURSDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="7"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="41"/>
+      <column name="DAY_NAME" value="FRIDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="7"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="42"/>
+      <column name="DAY_NAME" value="SATURDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="7"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="43"/>
+      <column name="DAY_NAME" value="MONDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="8"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="44"/>
+      <column name="DAY_NAME" value="TUESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="8"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="45"/>
+      <column name="DAY_NAME" value="WEDNESDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="8"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="46"/>
+      <column name="DAY_NAME" value="THURSDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="8"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="47"/>
+      <column name="DAY_NAME" value="FRIDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="8"/>
+    </insert>
+    <insert tableName="WORK_DAY">
+      <column name="id" valueNumeric="48"/>
+      <column name="DAY_NAME" value="SATURDAY"/>
+      <column name="TIME_TABLE_ID" valueNumeric="8"/>
+    </insert>
+  </changeSet>
+
+</databaseChangeLog>

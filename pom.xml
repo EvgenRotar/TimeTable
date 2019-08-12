@@ -24,11 +24,16 @@
   </parent>
 
   <properties>
-    <jackson-databind.version>2.9.7</jackson-databind.version>
     <java.version>1.8</java.version>
+    <spring-boot.version>2.1.3.RELEASE</spring-boot.version>
+    <jackson-databind.version>2.9.7</jackson-databind.version>
     <jjwt.version>0.9.0</jjwt.version>
     <org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
     <swagger.verison>2.9.2</swagger.verison>
+    <validation-api.version>2.0.1.Final</validation-api.version>
+    <liquibase-hibernate5.version>3.6</liquibase-hibernate5.version>
+    <liquibase-maven-plugin.version>3.5.5</liquibase-maven-plugin.version>
+    <javassist.version>3.24.0-GA</javassist.version>
   </properties>
 
   <dependencies>
@@ -50,6 +55,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
     <!--Test-->
@@ -98,14 +107,22 @@
       <version>${swagger.verison}</version>
     </dependency>
 
+    <!--Liquibase-->
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+    </dependency>
+
   </dependencies>
 
   <build>
     <plugins>
+
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -131,6 +148,59 @@
           </annotationProcessorPaths>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>${liquibase-maven-plugin.version}</version>
+        <configuration>
+          <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+          <changeLogFile>src/main/resources/db/db.changelog-master.xml</changeLogFile>
+          <diffChangeLogFile>src/main/resources/db/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
+          <logging>info</logging>
+        </configuration>
+
+        <executions>
+          <execution>
+            <id>update-profile</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>update</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>diff-profile</id>
+            <phase>process-test-resources</phase>
+            <goals>
+              <goal>diff</goal>
+            </goals>
+          </execution>
+        </executions>
+
+        <dependencies>
+          <dependency>
+            <groupId>org.liquibase.ext</groupId>
+            <artifactId>liquibase-hibernate5</artifactId>
+            <version>${liquibase-hibernate5.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring-boot.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${validation-api.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>${javassist.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
     </plugins>
   </build>
 

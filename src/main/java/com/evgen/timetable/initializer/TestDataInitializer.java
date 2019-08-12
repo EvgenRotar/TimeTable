@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @Slf4j
-@Component
+//@Component
 public class TestDataInitializer {
 
   private final RoleRepository roleRepository;
@@ -40,7 +40,7 @@ public class TestDataInitializer {
   private final RestTemplate restTemplate = new RestTemplate();
   private final GroupService groupService;
 
-  @EventListener(ApplicationStartedEvent.class)
+ //@EventListener(ApplicationStartedEvent.class)
   public void onApplicationStartedEvent() {
     initStudentAndAdminRoles();
     initGroups();
