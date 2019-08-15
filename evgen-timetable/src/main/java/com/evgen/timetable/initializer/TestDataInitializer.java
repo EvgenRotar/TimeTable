@@ -3,6 +3,7 @@ package com.evgen.timetable.initializer;
 import java.util.Objects;
 
 import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @Slf4j
-//@Component
+@Component
+@Profile("test")
 public class TestDataInitializer {
 
   private final RoleRepository roleRepository;
@@ -40,7 +42,7 @@ public class TestDataInitializer {
   private final RestTemplate restTemplate = new RestTemplate();
   private final GroupService groupService;
 
- //@EventListener(ApplicationStartedEvent.class)
+ @EventListener(ApplicationStartedEvent.class)
   public void onApplicationStartedEvent() {
     initStudentAndAdminRoles();
     initGroups();
@@ -55,7 +57,7 @@ public class TestDataInitializer {
     registrationTeacher(
         TeacherRegistrationRequest.builder()
             .login("maryaivana")
-            .password("14881488")
+            .password("testtesttest")
             .userName("Marya")
             .userSurname("Ivanavna")
             .build()

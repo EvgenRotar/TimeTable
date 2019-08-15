@@ -1,0 +1,80 @@
+{
+  "teacherId": 7,
+  "login": "zinaidasemena",
+  "userName": "Zinaida",
+  "userSurname": "Semenaana",
+  "timeTables": [
+    {
+      "timeTableId": null,
+      "timeTableName": "FIRST",
+      "workDays": [
+        {
+          "workDayId": null,
+          "dayName": "TUESDAY",
+          "lessons": []
+        },
+        {
+          "workDayId": null,
+          "dayName": "THURSDAY",
+          "lessons": []
+        },
+        {
+          "workDayId": null,
+          "dayName": "SATURDAY",
+          "lessons": []
+        },
+        {
+          "workDayId": null,
+          "dayName": "MONDAY",
+          "lessons": []
+        },
+        {
+          "workDayId": null,
+          "dayName": "FRIDAY",
+          "lessons": []
+        },
+        {
+          "workDayId": null,
+          "dayName": "WEDNESDAY",
+          "lessons": []
+        }
+      ]
+    },
+    {
+      "timeTableId": null,
+      "timeTableName": "SECOND",
+      "workDays": [
+        {
+          "workDayId": null,
+          "dayName": "SATURDAY",
+          "lessons": []
+        },
+        {
+          "workDayId": null,
+          "dayName": "FRIDAY",
+          "lessons": []
+        },
+        {
+          "workDayId": null,
+          "dayName": "THURSDAY",
+          "lessons": []
+        },
+        {
+          "workDayId": null,
+          "dayName": "WEDNESDAY",
+          "lessons": []
+        },
+        {
+          "workDayId": null,
+          "dayName": "MONDAY",
+          "lessons": []
+        },
+        {
+          "workDayId": null,
+          "dayName": "TUESDAY",
+          "lessons": []
+        }
+      ]
+    }
+  ]
+}

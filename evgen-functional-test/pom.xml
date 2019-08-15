@@ -11,5 +11,237 @@
 
   <artifactId>evgen-functional-test</artifactId>
 
+  <properties>
+    <skip.functional.tests>true</skip.functional.tests>
+
+    <test.core.version>0.0.5</test.core.version>
+    <groovy.version>2.4.12</groovy.version>
+    <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
+    <maven.dependency.plugin.version>3.0.1</maven.dependency.plugin.version>
+    <spock.version>1.3-groovy-2.4</spock.version>
+    <log4j.version>1.2.12</log4j.version>
+    <gmavenplus-plugin.version>1.5</gmavenplus-plugin.version>
+
+  </properties>
+
+  <dependencies>
+
+    <!--Groovy-->
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>${groovy.version}</version>
+    </dependency>
+
+    <!--Spock Framework-->
+    <dependency>
+      <groupId>org.spockframework</groupId>
+      <artifactId>spock-spring</artifactId>
+      <version>${spock.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.spockframework</groupId>
+      <artifactId>spock-core</artifactId>
+      <version>${spock.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring-framework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring-framework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${spring-framework.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.skyscreamer</groupId>
+      <artifactId>jsonassert</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore</artifactId>
+      <version>4.4.11</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.9</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skip>${skip.functional.tests}</skip>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.gmavenplus</groupId>
+        <artifactId>gmavenplus-plugin</artifactId>
+        <version>${gmavenplus-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>${maven.dependency.plugin.version}</version>
+        <executions>
+          <execution>
+            <id>copy</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>copyjar</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <artifactItems>
+            <artifactItem>
+              <groupId>com.evgen</groupId>
+              <artifactId>evgen-timetable</artifactId>
+              <version>${project.version}</version>
+              <type>jar</type>
+              <outputDirectory>${project.build.directory}/</outputDirectory>
+              <destFileName>timetable.jar</destFileName>
+            </artifactItem>
+          </artifactItems>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>functional-test</id>
+      <properties>
+        <skip.functional.tests>false</skip.functional.tests>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.8</version>
+            <executions>
+              <execution>
+                <id>bind</id>
+                <phase>validate</phase>
+                <configuration>
+                  <tasks>
+                    <exec executable="bash">
+                      <arg value="${project.build.scriptSourceDirectory}/bindPorts.sh"/>
+                    </exec>
+                  </tasks>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <version>1.0.0</version>
+            <executions>
+              <execution>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>read-project-properties</goal>
+                </goals>
+                <configuration>
+                  <files>
+                    <file>target/test-classes/ports.properties</file>
+                  </files>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.20</version>
+            <configuration>
+              <reportsDirectory>${project.build.directory}/surefire-reports/test</reportsDirectory>
+              <excludes>
+                <exclude>**/*IntegrationTest.java</exclude>
+              </excludes>
+              <testFailureIgnore>false</testFailureIgnore>
+              <systemPropertyVariables>
+              </systemPropertyVariables>
+              <forkCount>1</forkCount>
+              <reuseForks>true</reuseForks>
+            </configuration>
+          </plugin>
+
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>maven-http-plugin</artifactId>
+            <version>1.0.5</version>
+            <executions>
+              <execution>
+                <id>wait-on-esb</id>
+                <phase>test-compile</phase>
+                <goals>
+                  <goal>wait</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <url>http://localhost:${app.port}/ping</url>
+              <timeout>180</timeout>
+              <httpContinueWaitingCodes>404,503</httpContinueWaitingCodes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>

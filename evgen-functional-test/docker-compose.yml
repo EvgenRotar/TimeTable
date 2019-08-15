@@ -1,0 +1,37 @@
+version: '2.1'
+services:
+  SCC:
+    image: vagaabund/spring-cloud-config
+    ports:
+      - 8888
+    environment:
+      - ACTIVE_PROFILES=test
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://test:test@localhost:8888/timetable-config/status"]
+      interval: 1s
+      timeout: 3s
+      retries: 60
+
+  DB:
+    image: mysql
+    ports:
+    - 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=TIMETABLE
+
+  APP:
+      image: vagaabund/spring-boot
+      ports:
+        - 8080
+        - 5005
+      volumes:
+        - ./target/timetable.jar:/local/apps/app.jar
+      environment:
+        - ACTIVE_PROFILES=test
+        - JAVA_TOOL_OPTIONS=${JAVA_TOOL_OPTIONS} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+      depends_on:
+        SCC:
+          condition: service_healthy
+        DB:
+          condition: service_started
