@@ -19,7 +19,7 @@ class TeacherTest extends BaseTest {
     )
 
     then:
-    assert getBodyFromFile(teacherResponseFromFile) == (teacherResponse.getBody() as String)
+    verifyJSONResponse(teacherResponse.getBody().toString(), teacherResponseFromFile)
 
   }
 }

@@ -1,6 +1,7 @@
 package com.evgen.timetable
 
-
+import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
@@ -42,4 +43,12 @@ class BaseTest extends Specification {
     getClass().getClassLoader().getResourceAsStream(filePath).text
   }
 
+  void verifyJSONResponse(String actualResponse, String expectedResponseFilePath) {
+    String expectedResponse = getBodyFromFile(expectedResponseFilePath)
+    JSONAssert.assertEquals(prepareJSONString(expectedResponse), prepareJSONString(actualResponse), JSONCompareMode.NON_EXTENSIBLE)
+  }
+
+  def prepareJSONString(String jsonString) {
+    return jsonString.replaceAll("\\s", "").trim()
+  }
 }
