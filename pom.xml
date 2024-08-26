@@ -29,7 +29,7 @@
     <jackson-databind.version>2.9.7</jackson-databind.version>
     <jjwt.version>0.9.0</jjwt.version>
     <org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
-    <swagger.verison>2.9.2</swagger.verison>
+    <swagger.verison>2.10.0</swagger.verison>
     <validation-api.version>2.0.1.Final</validation-api.version>
     <liquibase-hibernate5.version>3.6</liquibase-hibernate5.version>
     <liquibase-maven-plugin.version>3.5.5</liquibase-maven-plugin.version>
